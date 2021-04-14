@@ -1,0 +1,8 @@
+D:\tt\core\JobService\DLL\Nuget.dll.config
+D:\tt\core\JobService\DLL\Nuget.dll
+D:\tt\core\JobService\DLL\Nuget.pdb
+D:\tt\core\JobService\Nuget\obj\Debug\Nuget.csprojAssemblyReference.cache
+D:\tt\core\JobService\Nuget\obj\Debug\Nuget.csproj.CoreCompileInputs.cache
+D:\tt\core\JobService\Nuget\obj\Debug\Nuget.csproj.CopyComplete
+D:\tt\core\JobService\Nuget\obj\Debug\Nuget.dll
+D:\tt\core\JobService\Nuget\obj\Debug\Nuget.pdb

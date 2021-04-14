@@ -1,0 +1,11 @@
+D:\tt\core\JobService\JobBase\bin\Debug\JobBase.dll
+D:\tt\core\JobService\JobBase\bin\Debug\JobBase.pdb
+D:\tt\core\JobService\JobBase\obj\Debug\JobBase.csproj.CoreCompileInputs.cache
+D:\tt\core\JobService\JobBase\obj\Debug\JobBase.dll
+D:\tt\core\JobService\JobBase\obj\Debug\JobBase.pdb
+D:\tt\core\JobService\JobBase\bin\Debug\Autofac.dll
+D:\tt\core\JobService\JobBase\bin\Debug\Newtonsoft.Json.dll
+D:\tt\core\JobService\JobBase\bin\Debug\Autofac.pdb
+D:\tt\core\JobService\JobBase\bin\Debug\Autofac.xml
+D:\tt\core\JobService\JobBase\bin\Debug\Newtonsoft.Json.xml
+D:\tt\core\JobService\JobBase\obj\Debug\JobBase.csproj.CopyComplete
