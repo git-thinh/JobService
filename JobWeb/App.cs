@@ -63,32 +63,29 @@ namespace JobWeb
                         {
                             case "/": return context.responseHome();
                             case PATH_ROOT_ADMIN:
-                                if (loginCheckGetToken(context).Length == 0)
-                                {
-                                    context.Response.Redirect("/login");
+                                if (context.requestAuthorizedOrRedirectLogin())
                                     return Task.FromResult(0);
-                                }
                                 else return next();
                             case "/favicon.ico":
                                 return context.Response.WriteAsync(string.Empty);
                             case "/logout":
-                                return pageLogoutResponse(context);
+                                return context.responseLogout();
                             case "/login":
-                                return pageLoginResponse(context);
-                            case PATH_ROOT_JOB + "/css17220":
-                                return css17200(context);
-                            case PATH_ROOT_JOB + "/js17220":
-                                return js17200(context);
+                                return context.responseLogin();
+                            //case PATH_ROOT_JOB + "/css17220":
+                            //    return css17200(context);
+                            //case PATH_ROOT_JOB + "/js17220":
+                            //    return js17200(context);
                             default:
                                 return next();
                         }
                 }
             });
 
-            app.MapWhen(context => context.Request.Uri.AbsolutePath.Equals("/login"),
-                (appBuilder_) => appBuilder_.Run(pageLoginResponse));
+            //app.MapWhen(context => context.Request.Uri.AbsolutePath.Equals("/login"),
+            //    (appBuilder_) => appBuilder_.Run((ctx)=> ctx.responseLogin()));
 
-            setupJob(app);
+            //setupJob(app);
 
             return app;
         }

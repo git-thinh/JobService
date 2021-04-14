@@ -85,18 +85,29 @@ namespace JobWeb
             return context.Response.WriteAsync(@"<script> location.href = '/login'; </script>");
         }
 
-        //static string loginCheckGetToken(IOwinContext context)
-        //{
-        //    string id = context.Request.Cookies["___ID"];
-        //    if (loginCheckToken(id)) return id;
-        //    return string.Empty;
-        //}
+        public static bool requestAuthorizedOrRedirectLogin(this IOwinContext context)
+        {
+            if (string.IsNullOrWhiteSpace(context.requestCheckGetToken()))
+            {
+                context.redirectToLogin();
+                return false;
+            }
+            return true;
+        }
 
-        //static bool loginCheckToken(string token)
-        //{
-        //    if (!string.IsNullOrWhiteSpace(token) && m_token.ContainsKey(token)) return true;
-        //    return false;
-        //}
+        public static string requestCheckGetToken(this IOwinContext context)
+        {
+            string token = context.Request.Cookies["___ID"];
+            if (token.tokenValid()) return token;
+            return string.Empty;
+        }
+
+        public static bool tokenValid(this string token)
+        {
+            //if (!string.IsNullOrWhiteSpace(token) && m_token.ContainsKey(token)) return true;
+            //return false;
+            return true;
+        }
 
         public static Task responseHtml(this IOwinContext context)
         {
