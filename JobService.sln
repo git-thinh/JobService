@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuget", "Nuget\Nuget.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobWeb", "JobWeb\JobWeb.csproj", "{0ADD1B52-CF92-4AAC-8F46-C54D2F3096F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JUrl", "JUrl\JUrl.csproj", "{978C416E-F811-4135-8106-5AD2ABA40349}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JTest", "JTest\JTest.csproj", "{4BDD9282-42C4-45A1-83BF-227D6741ADBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{0ADD1B52-CF92-4AAC-8F46-C54D2F3096F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0ADD1B52-CF92-4AAC-8F46-C54D2F3096F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0ADD1B52-CF92-4AAC-8F46-C54D2F3096F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{978C416E-F811-4135-8106-5AD2ABA40349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{978C416E-F811-4135-8106-5AD2ABA40349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{978C416E-F811-4135-8106-5AD2ABA40349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{978C416E-F811-4135-8106-5AD2ABA40349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BDD9282-42C4-45A1-83BF-227D6741ADBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BDD9282-42C4-45A1-83BF-227D6741ADBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BDD9282-42C4-45A1-83BF-227D6741ADBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BDD9282-42C4-45A1-83BF-227D6741ADBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
