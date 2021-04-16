@@ -10,3 +10,14 @@ D:\tt\core\JobService\JobBase\bin\Debug\Autofac.xml
 D:\tt\core\JobService\JobBase\bin\Debug\Newtonsoft.Json.xml
 D:\tt\core\JobService\JobBase\obj\Debug\JobBase.csproj.CopyComplete
 D:\tt\core\JobService\JobBase\obj\Debug\JobBase.csprojAssemblyReference.cache
+C:\tt\JobService\JobBase\bin\Debug\JobBase.dll
+C:\tt\JobService\JobBase\bin\Debug\JobBase.pdb
+C:\tt\JobService\JobBase\bin\Debug\Autofac.dll
+C:\tt\JobService\JobBase\bin\Debug\Newtonsoft.Json.dll
+C:\tt\JobService\JobBase\bin\Debug\Autofac.pdb
+C:\tt\JobService\JobBase\bin\Debug\Autofac.xml
+C:\tt\JobService\JobBase\bin\Debug\Newtonsoft.Json.xml
+C:\tt\JobService\JobBase\obj\Debug\JobBase.csproj.CoreCompileInputs.cache
+C:\tt\JobService\JobBase\obj\Debug\JobBase.csproj.CopyComplete
+C:\tt\JobService\JobBase\obj\Debug\JobBase.dll
+C:\tt\JobService\JobBase\obj\Debug\JobBase.pdb

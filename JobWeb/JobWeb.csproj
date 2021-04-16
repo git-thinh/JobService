@@ -31,6 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>CS0618</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -118,10 +119,20 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Site\Home.html" />
+    <Content Include="Site\Login.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Controller\Base.cs" />
+    <Compile Include="Controller\Images.cs" />
+    <Compile Include="Controller\Job.cs" />
+    <Compile Include="Controller\Notify.cs" />
+    <Compile Include="Controller\Test.cs" />
+    <Compile Include="Controller\User.cs" />
+    <Compile Include="Job.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -159,7 +170,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49919</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44332/</IISUrl>
+          <IISUrl>http://localhost:49919/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

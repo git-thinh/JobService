@@ -11,10 +11,13 @@ namespace JobWeb
 {
     public static class Page
     {
+        const string PATH_ROOT_JOB = "/admin";
+        const string PATH_ROOT_ADMIN = "/admin";
+
         public static Task responseHome(this IOwinContext context)
         {
             string s = string.Empty;
-            string file = HostingEnvironment.MapPath("~/home.html");
+            string file = HostingEnvironment.MapPath("~/site/home.html");
             if (File.Exists(file)) s = File.ReadAllText(file);
             context.Response.ContentType = "text/html";
             return context.Response.WriteAsync(s);
@@ -22,7 +25,7 @@ namespace JobWeb
 
         public static Task responseLogout(this IOwinContext context)
         {
-            int time;
+            //int time;
             //string token = loginCheckGetToken(context);
             //if (token.Length > 0) m_token.TryRemove(token, out time);
             return context.redirectToLogin();
@@ -39,7 +42,7 @@ namespace JobWeb
                 }, null);
 
                 string s = string.Empty;
-                string file = HostingEnvironment.MapPath("~/login.html");
+                string file = HostingEnvironment.MapPath("~/site/login.html");
                 if (File.Exists(file)) s = File.ReadAllText(file);
                 context.Response.ContentType = "text/html";
                 return context.Response.WriteAsync(s);
@@ -74,7 +77,7 @@ namespace JobWeb
             //    return context.Response.WriteAsync(@"{""ok"":false,""error"":""" + ex.Message + @"""}");
             //}
 
-            return context.Response.WriteAsync(@"{""ok"":true}");
+            return context.Response.WriteAsync(@"{""ok"":true,""link"":""" + PATH_ROOT_ADMIN + @"""}");
         }
 
         public static Task redirectToLogin(this IOwinContext context)
