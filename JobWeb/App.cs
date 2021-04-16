@@ -75,13 +75,9 @@ namespace JobWeb
             return app;
         }
 
+        public bool ApiCheckLogin(HttpRequestMessage request) => request.ApiCheckLogin();
         public void EventSend(string text) => EventSocket.Send(text);
         public void EventRegister(object client) => EventSocket.Register(client);
-
-        public bool ApiCheckLogin(HttpRequestMessage request)
-        {
-            throw new NotImplementedException();
-        }
 
     }
 }

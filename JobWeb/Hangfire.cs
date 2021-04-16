@@ -38,7 +38,7 @@ namespace JobWeb
             {
                 //IgnoreAntiforgeryToken = true,
                 //IsReadOnlyFunc = (DashboardContext context) => true,
-                DashboardTitle = "Mascot",
+                DashboardTitle = "Admin",
                 Authorization = new[] { new DashboardAuthorizeFilter(dashboardAuthorize) }
             };
             app.UseHangfireDashboard(CONFIG.ADMIN_PATH, dashboardOptions);
