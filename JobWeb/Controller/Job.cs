@@ -126,7 +126,7 @@ namespace JobWeb
                             var job = (IBackgroundJobPerformer)Activator.CreateInstance(type, new object[] { m_app });
                             BackgroundJob.Enqueue(() => job.Perform(null));
                             //RecurringJob.AddOrUpdate(jobId, () => job.Perform(null), "* 23 * * *");
-                            manager.AddOrUpdate(type.FullName, Job.FromExpression(() => job.Perform(null)), "* 23 * * *");
+                            //manager.AddOrUpdate(type.FullName, Job.FromExpression(() => job.Perform(null)), "* 23 * * *");
                             ls.Add(type.FullName);
                         }
                         catch (Exception ex)

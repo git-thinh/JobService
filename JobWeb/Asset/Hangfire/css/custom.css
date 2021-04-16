@@ -1,0 +1,32 @@
+﻿
+body {
+    /*background-color:red !important;*/
+}
+#__cs_menu {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    top: 50px;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    background-color: #ccc;
+    padding-top: 11px;
+}
+
+#__cs_menu button{
+}
+
+#footer ul.list-inline.credit li:nth-child(1),
+#footer ul.list-inline.credit li:nth-child(2) {
+    display: none;
+}
+
+#wrap .navbar-collapse .nav.navbar-nav.navbar-right li{
+    display:none;
+}
+
+#wrap table.table.table-condensed.job-snippet-properties,
+#wrap .job-snippet {
+    display: none;
+}

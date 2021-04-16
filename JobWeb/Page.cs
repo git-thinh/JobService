@@ -11,9 +11,6 @@ namespace JobWeb
 {
     public static class Page
     {
-        const string PATH_ROOT_JOB = "/admin";
-        const string PATH_ROOT_ADMIN = "/admin";
-
         public static Task responseHome(this IOwinContext context)
         {
             string s = string.Empty;
@@ -77,7 +74,7 @@ namespace JobWeb
             //    return context.Response.WriteAsync(@"{""ok"":false,""error"":""" + ex.Message + @"""}");
             //}
 
-            return context.Response.WriteAsync(@"{""ok"":true,""link"":""" + PATH_ROOT_ADMIN + @"""}");
+            return context.Response.WriteAsync(@"{""ok"":true,""link"":""" + ConfigJob.PATH_ROOT + @"""}");
         }
 
         public static Task redirectToLogin(this IOwinContext context)

@@ -119,13 +119,19 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Asset\Hangfire\css\02.css" />
+    <Content Include="Asset\Hangfire\css\custom.css" />
+    <Content Include="Asset\Hangfire\css\01.css" />
+    <Content Include="Asset\Hangfire\js\04.js" />
+    <Content Include="Asset\Hangfire\js\01.js" />
+    <Content Include="Asset\Hangfire\js\02.js" />
+    <Content Include="Asset\Hangfire\js\custom.js" />
     <Content Include="Site\Home.html" />
     <Content Include="Site\Login.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Config.cs" />
     <Compile Include="Controller\Base.cs" />
     <Compile Include="Controller\Images.cs" />
     <Compile Include="Controller\Job.cs" />

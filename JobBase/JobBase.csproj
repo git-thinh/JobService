@@ -35,6 +35,9 @@
     <Reference Include="Autofac">
       <HintPath>..\DLL\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Hangfire.Core">
+      <HintPath>..\DLL\Hangfire.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\Newtonsoft.Json.dll</HintPath>
@@ -49,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DashboardAuthorize.cs" />
+    <Compile Include="ConfigJob.cs" />
     <Compile Include="IAppJob.cs" />
     <Compile Include="oResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

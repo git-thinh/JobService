@@ -1,5 +1,6 @@
 ﻿using Hangfire;
 using Hangfire.Console;
+using Hangfire.Dashboard;
 using Hangfire.InMemory;
 using Microsoft.Owin;
 using Owin;
@@ -38,13 +39,19 @@ namespace JobWeb
                 //IgnoreAntiforgeryToken = true,
                 //IsReadOnlyFunc = (DashboardContext context) => true,
                 DashboardTitle = "Mascot",
-                Authorization = new[] { new HangfireAuthorizeFilter(dashboardAuthorize) }
+                Authorization = new[] { new DashboardAuthorizeFilter(dashboardAuthorize) }
             };
-            app.UseHangfireDashboard(PATH_ROOT_JOB, dashboardOptions);
+            app.UseHangfireDashboard(ConfigJob.PATH_ROOT, dashboardOptions);
             app.UseHangfireServer();
         }
 
-        static Task css17200(IOwinContext context)
+        static Func<DashboardContext, bool> dashboardAuthorize = (dbContext) =>
+        {
+            var context = new OwinContext(dbContext.GetOwinEnvironment());
+            return context.requestAuthorizedOrRedirectLogin();
+        };
+
+        public static Task css17220(this IOwinContext context)
         {
             StringBuilder bi = new StringBuilder(string.Empty);
             string path = HostingEnvironment.MapPath("~/asset/css");
@@ -57,7 +64,7 @@ namespace JobWeb
             return context.Response.WriteAsync(bi.ToString());
         }
 
-        static Task js17200(IOwinContext context)
+        public static Task js17220(this IOwinContext context)
         {
             StringBuilder bi = new StringBuilder(string.Empty);
             string path = HostingEnvironment.MapPath("~/asset/js");

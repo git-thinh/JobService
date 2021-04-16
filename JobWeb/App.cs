@@ -15,9 +15,6 @@ namespace JobWeb
     using WebSocketSendAsync = Func<ArraySegment<byte>, int,/*message type*/ bool, /*end of message*/ CancellationToken, Task>;
     public class AppBuilderProvider : IAppJob, IDisposable
     {
-        const string PATH_ROOT_JOB = "/admin";
-        const string PATH_ROOT_ADMIN = "/admin";
-
         public IContainer Container { set; get; }
 
         #region [ Ctor ]
@@ -46,46 +43,35 @@ namespace JobWeb
                 if (path.Length > 3) ext = path.Substring(path.Length - 3, 3);
                 switch (ext)
                 {
-                    ////case "jpg":
-                    ////case "shx":
-                    ////    return pageImage(context, next);
-                    ////case "tml":
-                    ////    return pageHtmlResponse(context);
-                    ////case ".js":
-                    ////    return pageScriptResponse(context);
-                    ////case "css":
-                    ////    return pageStyleResponse(context);
-                    ////case "iff":
-                    ////    return pageFontResponse(context);
-                    //////case "/admin/stats": return next();
+                    case "tml":
+                        return context.responseHtml();
+                    case "/admin/stats": 
+                        return next();
                     default:
                         switch (path)
                         {
                             case "/": return context.responseHome();
-                            case PATH_ROOT_ADMIN:
+                            case "/favicon.ico":
+                                return context.Response.WriteAsync(string.Empty);
+                            case ConfigJob.PATH_ROOT:
                                 if (context.requestAuthorizedOrRedirectLogin())
                                     return Task.FromResult(0);
                                 else return next();
-                            case "/favicon.ico":
-                                return context.Response.WriteAsync(string.Empty);
                             case "/logout":
                                 return context.responseLogout();
                             case "/login":
                                 return context.responseLogin();
-                            //case PATH_ROOT_JOB + "/css17220":
-                            //    return css17200(context);
-                            //case PATH_ROOT_JOB + "/js17220":
-                            //    return js17200(context);
+                            case ConfigJob.PATH_ROOT + "/css17220":
+                                return context.css17220();
+                            case ConfigJob.PATH_ROOT + "/js17220":
+                                return context.js17220();
                             default:
                                 return next();
                         }
                 }
             });
 
-            //app.MapWhen(context => context.Request.Uri.AbsolutePath.Equals("/login"),
-            //    (appBuilder_) => appBuilder_.Run((ctx)=> ctx.responseLogin()));
-
-            //setupJob(app);
+            app.initHangfire();
 
             return app;
         }
