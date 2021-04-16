@@ -20,3 +20,7 @@
 /DLL/*.xml
 /DLL/*.pdb
 /DLL/Nuget.dll
+/JTest/bin
+/JTest/obj
+/JUrl/obj
+/JUrl/bin

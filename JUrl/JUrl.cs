@@ -4,9 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JUrl
+public class JUrl
 {
-    public class Class1
-    {
-    }
 }
