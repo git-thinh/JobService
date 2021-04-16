@@ -1,3 +1,4 @@
+
 ////////(function ($, hangfire) {
 ////////    var pollUrl = hangfire.config.consolePollUrl;
 ////////    var pollInterval = hangfire.config.consolePollInterval;
@@ -314,3 +315,4 @@
 ////////        Hangfire.page._jobProgressPoller.start();
 ////////    }
 ////////});
+

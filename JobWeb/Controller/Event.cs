@@ -40,7 +40,7 @@ namespace JobWeb
                                         System.Threading.CancellationToken, // cancel
                                         System.Threading.Tasks.Task>;
 
-    public class NotifyController : BaseController
+    public class EventController : BaseController
     {
         public HttpResponseMessage Get()
         {

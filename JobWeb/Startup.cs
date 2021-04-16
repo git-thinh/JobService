@@ -27,21 +27,15 @@ namespace JobWeb
         }
     }
 
-    public class ApiPath
-    {
-        public const string NOTIFY_WEB_SOCKET_NAME = "ws";
-        public const string NOTIFY_WEB_SOCKET_PATH = "/ws";
-    }
-
     public class WebApiConfig
     {
         public static void Register(HttpConfiguration config, IAppJob app)
         {
-            //config.Routes.MapHttpRoute(
-            //        name: "NotifySocket",
-            //        routeTemplate: ApiPath.NOTIFY_WEB_SOCKET_NAME,
-            //        defaults: new { controller = "Notify", action = "Get" }
-            //    );
+            config.Routes.MapHttpRoute(
+                    name: "EventSocket",
+                    routeTemplate: CONFIG.EVENT_WS_NAME,
+                    defaults: new { controller = "Event", action = "Get" }
+                );
 
             //config.Routes.MapHttpRoute(
             //        name: "TestApi",
@@ -70,9 +64,9 @@ namespace JobWeb
         public async Task<HttpResponseMessage> ExecuteActionFilterAsync(HttpActionContext actionContext,
             CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
         {
-            if (actionContext.Request.RequestUri.AbsolutePath == ApiPath.NOTIFY_WEB_SOCKET_PATH
+            if (actionContext.Request.RequestUri.AbsolutePath == CONFIG.EVENT_WS_PATH
                 || actionContext.Request.RequestUri.AbsolutePath == "/test"
-                || m_app.LoginCheckApi(actionContext.Request))
+                || m_app.ApiCheckLogin(actionContext.Request))
                 return await continuation();
             else throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Unauthorized));
         }

@@ -7,5 +7,5 @@ public interface IAppJob
     void EventSend(string text);
     void EventRegister(object client);
 
-    bool LoginCheckApi(HttpRequestMessage request);
+    bool ApiCheckLogin(HttpRequestMessage request);
 }

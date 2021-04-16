@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DashboardAuthorize.cs" />
-    <Compile Include="ConfigJob.cs" />
+    <Compile Include="CONFIG.cs" />
     <Compile Include="IAppJob.cs" />
     <Compile Include="oResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

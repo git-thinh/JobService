@@ -15,7 +15,7 @@ using System.Web.Hosting;
 
 namespace JobWeb
 {
-    public static class Job
+    public static class HangfireExtension
     {
         public static void initHangfire(this IAppBuilder app)
         {
@@ -41,7 +41,7 @@ namespace JobWeb
                 DashboardTitle = "Mascot",
                 Authorization = new[] { new DashboardAuthorizeFilter(dashboardAuthorize) }
             };
-            app.UseHangfireDashboard(ConfigJob.PATH_ROOT, dashboardOptions);
+            app.UseHangfireDashboard(CONFIG.ADMIN_PATH, dashboardOptions);
             app.UseHangfireServer();
         }
 
@@ -54,7 +54,7 @@ namespace JobWeb
         public static Task css17220(this IOwinContext context)
         {
             StringBuilder bi = new StringBuilder(string.Empty);
-            string path = HostingEnvironment.MapPath("~/asset/css");
+            string path = HostingEnvironment.MapPath("~/Asset/Hangfire/css");
             if (Directory.Exists(path))
             {
                 var fs = Directory.GetFiles(path, "*.css").OrderBy(x => x).ToArray();
@@ -67,7 +67,7 @@ namespace JobWeb
         public static Task js17220(this IOwinContext context)
         {
             StringBuilder bi = new StringBuilder(string.Empty);
-            string path = HostingEnvironment.MapPath("~/asset/js");
+            string path = HostingEnvironment.MapPath("~/Asset/Hangfire/js");
             if (Directory.Exists(path))
             {
                 var fs = Directory.GetFiles(path, "*.js").OrderBy(x => x).ToArray();

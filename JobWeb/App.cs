@@ -12,7 +12,6 @@ using System.Web;
 
 namespace JobWeb
 {
-    using WebSocketSendAsync = Func<ArraySegment<byte>, int,/*message type*/ bool, /*end of message*/ CancellationToken, Task>;
     public class AppBuilderProvider : IAppJob, IDisposable
     {
         public IContainer Container { set; get; }
@@ -53,17 +52,17 @@ namespace JobWeb
                             case "/": return context.responseHome();
                             case "/favicon.ico":
                                 return context.Response.WriteAsync(string.Empty);
-                            case ConfigJob.PATH_ROOT:
+                            case CONFIG.ADMIN_PATH:
                                 if (context.requestAuthorizedOrRedirectLogin())
-                                    return Task.FromResult(0);
-                                else return next();
+                                    return next();
+                                else return Task.FromResult(0);
                             case "/logout":
                                 return context.responseLogout();
                             case "/login":
                                 return context.responseLogin();
-                            case ConfigJob.PATH_ROOT + "/css17220":
+                            case CONFIG.ADMIN_PATH + "/css17220":
                                 return context.css17220();
-                            case ConfigJob.PATH_ROOT + "/js17220":
+                            case CONFIG.ADMIN_PATH + "/js17220":
                                 return context.js17220();
                             default:
                                 return next();
@@ -76,17 +75,10 @@ namespace JobWeb
             return app;
         }
 
-        public void EventSend(string text)
-        {
-            throw new NotImplementedException();
-        }
+        public void EventSend(string text) => EventSocket.Send(text);
+        public void EventRegister(object client) => EventSocket.Register(client);
 
-        public void EventRegister(object client)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool LoginCheckApi(HttpRequestMessage request)
+        public bool ApiCheckLogin(HttpRequestMessage request)
         {
             throw new NotImplementedException();
         }

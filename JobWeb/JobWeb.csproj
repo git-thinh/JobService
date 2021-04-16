@@ -132,15 +132,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Authorize.cs" />
     <Compile Include="Controller\Base.cs" />
     <Compile Include="Controller\Images.cs" />
     <Compile Include="Controller\Job.cs" />
-    <Compile Include="Controller\Notify.cs" />
+    <Compile Include="Controller\Event.cs" />
     <Compile Include="Controller\Test.cs" />
     <Compile Include="Controller\User.cs" />
-    <Compile Include="Job.cs" />
+    <Compile Include="EventSocket.cs" />
+    <Compile Include="Hangfire.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

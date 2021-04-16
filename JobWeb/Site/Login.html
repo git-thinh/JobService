@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300i,400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <title>Login</title>
     <style>
         body {
@@ -55,7 +55,7 @@
     </style>
 </head>
 <body>
-    <div class="row m-0 h-100">
+    <div class="row m-0 h-100" id="app" style="opacity:0;">
         <div class="col p-0 text-center d-flex justify-content-center align-items-center display-none">
             <svg class="w-100" id="f9eb83fe-2109-496c-8de2-d29751931755" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1166.17" height="805.09" viewBox="0 0 1166.17 805.09">
                 <defs><linearGradient id="b7f84a8b-804f-4004-8d61-2f9b427d4893" x1="785.51" y1="659.88" x2="938.51" y2="659.88" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="gray" stop-opacity="0.25" /><stop offset="0.54" stop-color="gray" stop-opacity="0.12" /><stop offset="1" stop-color="gray" stop-opacity="0.1" /></linearGradient></defs>
@@ -143,28 +143,88 @@
             </svg>
         </div>
         <div class="col p-0 bg-custom d-flex justify-content-center align-items-center flex-column w-100">
-            <form class="w-75" action="#">
+            <div v-show="message.length > 0" class="w-75 alert alert-warning alert-dismissible fade show bg-danger text-white text-center position-absolute top-50 start-50 translate-middle" role="alert">
+                <strong>{{message}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <form class="w-75">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="username" required>
+                    <input v-model="username" type="text" class="form-control" id="exampleFormControlInput1" placeholder="username" required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput2" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleFormControlInput2" placeholder="password" required>
+                    <input v-model="password" type="password" class="form-control" id="exampleFormControlInput2" placeholder="password" required>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input v-model="remember" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">
                                 Keep me logged in
                             </label>
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-custom btn-lg btn-block mt-3">Login</button>
+                <button :disabled="loading" @click="loginClick" type="button" class="btn btn-custom btn-lg btn-block mt-3">Login</button>
             </form>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var __app = new Vue({
+                el: '#app',
+                data: function () {
+                    return {
+                        loading: false,
+                        message: '',
+                        remember: false,
+                        username: '',
+                        password: ''
+                    };
+                },
+                mounted: function () {
+                    var box = document.getElementById('app');
+                    if (box) box.style.opacity = 1;
+                },
+                methods: {
+                    loginClick: function (event) {
+                        event.stopPropagation();
+
+                        var self = this, username = self.username,
+                            password = self.password;
+
+                        self.message = '';
+                        if (username.length < 3 || password.length < 3) {
+                            self.message = 'Please input infomation of account correct!';
+                            return;
+                        }
+
+                        self.loading = true;
+                        fetch('/login', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ Username: username, Password: password })
+                        }).then(function (r) { return r.json() }).then(function (r) {
+                            if (r.ok) {
+                                if (r.link) location.href = r.link;
+                                else location.href = "/";
+                            } else {
+                                self.message = 'Login fail! Please try again!';
+                                self.loading = false;
+                            }
+                        });
+                    }
+                }
+            });
+
+            window.addEventListener('click', function (e) {
+                __app.message = '';
+            });
+        });
+    </script>
 </body>
 </html>
