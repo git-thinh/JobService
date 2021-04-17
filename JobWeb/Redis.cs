@@ -60,6 +60,8 @@ namespace JobWeb
 
                             IBatch batch = m_db.CreateBatch();
                             updateBatch(batch, arr);
+                            
+                            //app_.RedisSaveFile();
 
                             m_dequeue_trying = 0;
                         }
@@ -126,6 +128,21 @@ namespace JobWeb
             data.Add("_rd_key_item", string.Empty);
             m_queue.Enqueue(data);
             signalSet();
+        }
+
+        public static void RedisClearDB()
+        {
+            RedisStore.Server.FlushDatabase();
+        }
+
+        public static void RedisSaveFile()
+        {
+            RedisStore.Server.SaveAsync(SaveType.BackgroundSave);
+        }
+
+        public static string[] RedisSearchKeys(string keyContainText)
+        {
+            return RedisStore.Server.Keys(pattern: "*" + keyContainText + "*").Select(x => (string)x).ToArray();
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -246,15 +263,16 @@ namespace JobWeb
     public class RedisStore
     {
         private static readonly Lazy<ConnectionMultiplexer> LazyConnection;
+        private static readonly string redisConnectStr;
 
         static RedisStore()
         {
-            string redisImageConnectStr = ConfigurationManager.AppSettings["REDIS_CONNECT"];
-            LazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(redisImageConnectStr));
+            redisConnectStr = ConfigurationManager.AppSettings["REDIS_CONNECT"];
+            LazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(redisConnectStr));
         }
 
         public static ConnectionMultiplexer Connection => LazyConnection.Value;
-
+        public static IServer Server => LazyConnection.Value.GetServer(redisConnectStr.Split(',')[0]);
         public static IDatabase RedisCache => Connection.GetDatabase();
     }
 

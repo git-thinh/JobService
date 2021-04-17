@@ -12,6 +12,9 @@ public interface IApp
     void EventSend(string text);
     void EventRegister(object client);
 
+    void RedisClearDB();
+    void RedisSaveFile();
+    string[] RedisSearchKeys(string keyContainText);
     void RedisPublish(string message);
     void RedisUpdate(string storeKey, string itemKey, Dictionary<string, object> data);
     void RedisDelete(string storeKey, string itemKey);

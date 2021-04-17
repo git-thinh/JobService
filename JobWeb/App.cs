@@ -91,7 +91,9 @@ namespace JobWeb
         public void EventRegister(object client) => EventSocket.Register(client);
 
 
-
+        public void RedisClearDB() => Redis.RedisClearDB();
+        public void RedisSaveFile() => Redis.RedisSaveFile();
+        public string[] RedisSearchKeys(string keyContainText) => Redis.RedisSearchKeys(keyContainText);
         public void RedisPublish(string message) => Redis.Publish(message);
         public void RedisUpdate(string storeKey, string itemKey, Dictionary<string, object> data) => Redis.Update(storeKey, itemKey, data);
         public void RedisDelete(string storeKey, string itemKey) => Redis.Delete(storeKey, itemKey);
