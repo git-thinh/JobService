@@ -28,7 +28,7 @@ namespace JobWeb
             {
                 new Thread(new ParameterizedThreadStart((ms) =>
                 {
-                    var m_db = RedisStore.RedisCache;
+                    var m_db = RedisStore.Db;
                     m_connected = true;
 
                     var tup = (Tuple<IApp, ConcurrentQueue<Dictionary<string, object>>>)ms;
@@ -273,7 +273,7 @@ namespace JobWeb
 
         public static ConnectionMultiplexer Connection => LazyConnection.Value;
         public static IServer Server => LazyConnection.Value.GetServer(redisConnectStr.Split(',')[0]);
-        public static IDatabase RedisCache => Connection.GetDatabase();
+        public static IDatabase Db => Connection.GetDatabase();
     }
 
 }
