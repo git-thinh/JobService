@@ -16,7 +16,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{C40E77D6-6E45-4B49-B596-9E86F19251DC}"
 	ProjectSection(SolutionItems) = preProject
 		ReadMe.txt = ReadMe.txt
+		..\..\..\Redis606\redis.bat = ..\..\..\Redis606\redis.bat
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{A1A661D8-BD53-46E6-9131-B1F21BD1FC36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSRedis", "Lib\CSRedis\CSRedis.csproj", "{D35E185E-A7E1-41E1-846C-21944F56074F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,9 +49,16 @@ Global
 		{4BDD9282-42C4-45A1-83BF-227D6741ADBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BDD9282-42C4-45A1-83BF-227D6741ADBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BDD9282-42C4-45A1-83BF-227D6741ADBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35E185E-A7E1-41E1-846C-21944F56074F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35E185E-A7E1-41E1-846C-21944F56074F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35E185E-A7E1-41E1-846C-21944F56074F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35E185E-A7E1-41E1-846C-21944F56074F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D35E185E-A7E1-41E1-846C-21944F56074F} = {A1A661D8-BD53-46E6-9131-B1F21BD1FC36}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {140B1259-B7CB-4AB4-AD68-8CD33165C903}

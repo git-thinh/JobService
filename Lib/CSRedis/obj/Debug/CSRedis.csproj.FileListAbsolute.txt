@@ -1,0 +1,6 @@
+D:\tt\core\JobService\Lib\CSRedis\bin\Debug\csredis.XML
+D:\tt\core\JobService\Lib\CSRedis\bin\Debug\csredis.dll
+D:\tt\core\JobService\Lib\CSRedis\bin\Debug\csredis.pdb
+D:\tt\core\JobService\Lib\CSRedis\obj\Debug\CSRedis.csproj.CoreCompileInputs.cache
+D:\tt\core\JobService\Lib\CSRedis\obj\Debug\csredis.dll
+D:\tt\core\JobService\Lib\CSRedis\obj\Debug\csredis.pdb

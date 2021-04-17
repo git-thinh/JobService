@@ -37,11 +37,11 @@ namespace JobWeb
                     defaults: new { controller = "Event", action = "Get" }
                 );
 
-            //config.Routes.MapHttpRoute(
-            //        name: "TestApi",
-            //        routeTemplate: "test",
-            //        defaults: new { controller = "Test", action = "Get" }
-            //    );
+            config.Routes.MapHttpRoute(
+                    name: "TestApi",
+                    routeTemplate: "test/{action}",
+                    defaults: new { controller = "Test", action = "Get" }
+                );
 
             config.Routes.MapHttpRoute(
                 name: "ActionApi",

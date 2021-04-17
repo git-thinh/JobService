@@ -131,6 +131,7 @@
     <Content Include="Asset\Hangfire\js\01.js" />
     <Content Include="Asset\Hangfire\js\02.js" />
     <Content Include="Asset\Hangfire\js\custom.js" />
+    <Content Include="Global.asax" />
     <Content Include="Site\Home.html" />
     <Content Include="Site\Login.html" />
     <Content Include="Web.config" />
@@ -142,9 +143,13 @@
     <Compile Include="Controller\Images.cs" />
     <Compile Include="Controller\Job.cs" />
     <Compile Include="Controller\Event.cs" />
+    <Compile Include="Controller\Stream.cs" />
     <Compile Include="Controller\Test.cs" />
     <Compile Include="Controller\User.cs" />
     <Compile Include="EventSocket.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Hangfire.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -168,6 +173,10 @@
     <ProjectReference Include="..\JobBase\JobBase.csproj">
       <Project>{a91d8353-358c-4992-bcf0-d1d5f8f35f05}</Project>
       <Name>JobBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lib\CSRedis\CSRedis.csproj">
+      <Project>{d35e185e-a7e1-41e1-846c-21944f56074f}</Project>
+      <Name>CSRedis</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
