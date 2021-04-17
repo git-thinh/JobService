@@ -1,4 +1,5 @@
-﻿using Hangfire;
+﻿using Autofac;
+using Hangfire;
 using Hangfire.Console;
 using Hangfire.Dashboard;
 using Hangfire.InMemory;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -43,13 +45,11 @@ namespace JobWeb
             };
             app.UseHangfireDashboard(CONFIG.ADMIN_PATH, dashboardOptions);
             app.UseHangfireServer();
+
         }
 
-        static Func<DashboardContext, bool> dashboardAuthorize = (dbContext) =>
-        {
-            var context = new OwinContext(dbContext.GetOwinEnvironment());
-            return context.requestAuthorizedOrRedirectLogin();
-        };
+        static Func<DashboardContext, bool> dashboardAuthorize = (dbContext)
+            => (new OwinContext(dbContext.GetOwinEnvironment())).requestAuthorizedOrRedirectLogin();
 
         public static Task css17220(this IOwinContext context)
         {

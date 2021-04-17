@@ -2,19 +2,24 @@
 using Hangfire;
 using Hangfire.Server;
 using Owin;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Hosting;
 
 namespace JobWeb
 {
-    public class AppBuilderProvider : IAppJob, IDisposable
+    public class AppBuilderProvider : IApp, IDisposable
     {
-        public IContainer Container { set; get; }
+        public ISubscriber RedisSubscriber { set; get; }
+        public IContainer AutofacContainer { set; get; }
 
         #region [ Ctor ]
 
@@ -22,18 +27,22 @@ namespace JobWeb
         public AppBuilderProvider(IAppBuilder app) => _app = initRouter(app);
 
         public IAppBuilder Get() => _app;
-        public IAppJob getApp() => this;
+        public IApp getApp() => this;
         public void Dispose() { }
 
         #endregion
 
         private IAppBuilder initRouter(IAppBuilder app)
         {
+            Redis.initInstance(this);
+            Redis.initPubSub(this);
+
             var builder = new ContainerBuilder();
-            builder.RegisterInstance<IAppJob>(this).SingleInstance();
+            builder.RegisterInstance<IApp>(this).SingleInstance();
+            builder.RegisterType<IJob>();
             builder.RegisterType<IBackgroundJobPerformer>();
             var container = builder.Build();
-            this.Container = container;
+            this.AutofacContainer = container;
             GlobalConfiguration.Configuration.UseAutofacActivator(container, false);
 
             app.Use((context, next) =>
@@ -72,6 +81,8 @@ namespace JobWeb
 
             app.initHangfire();
 
+            JobTest();
+
             return app;
         }
 
@@ -79,5 +90,30 @@ namespace JobWeb
         public void EventSend(string text) => EventSocket.Send(text);
         public void EventRegister(object client) => EventSocket.Register(client);
 
+
+
+        public void RedisPublish(string message) => Redis.Publish(message);
+        public void RedisUpdate(string storeKey, string itemKey, Dictionary<string, object> data) => Redis.Update(storeKey, itemKey, data);
+        public void RedisDelete(string storeKey, string itemKey) => Redis.Delete(storeKey, itemKey);
+        public void RedisDeleteAll(string storeKey) => Redis.DeleteAll(storeKey);
+
+        public void JobTest()
+        {
+            string pathDll = HostingEnvironment.MapPath("~/Jobs/JUrl.dll");
+            if (File.Exists(pathDll))
+            {
+                var asm = Assembly.LoadFrom(pathDll);
+                var type = asm.GetTypes().Where(x => x.Name != "<>c").Take(1).SingleOrDefault();
+                if (type != null)
+                {
+                    var updater = new ContainerBuilder();
+                    updater.RegisterType(type);
+                    updater.Update(this.AutofacContainer);
+
+                    var job = (IJob)Activator.CreateInstance(type, new object[] { (IApp)(this) });
+                    var jobId = BackgroundJob.Enqueue(() => job.test(null));
+                }
+            }
+        }
     }
 }

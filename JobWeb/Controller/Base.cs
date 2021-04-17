@@ -6,7 +6,7 @@ namespace JobWeb
 {
     public class BaseController : ApiController
     {
-        public readonly IAppJob m_app;
+        public readonly IApp m_app;
         public BaseController() => m_app = HttpContext.Current.GetOwinContext().Get<AppBuilderProvider>().getApp();
     }
 }

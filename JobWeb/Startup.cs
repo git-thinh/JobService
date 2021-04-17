@@ -29,7 +29,7 @@ namespace JobWeb
 
     public class WebApiConfig
     {
-        public static void Register(HttpConfiguration config, IAppJob app)
+        public static void Register(HttpConfiguration config, IApp app)
         {
             config.Routes.MapHttpRoute(
                     name: "EventSocket",
@@ -58,8 +58,8 @@ namespace JobWeb
 
     public class AuthorizeFilter : IActionFilter
     {
-        readonly IAppJob m_app;
-        public AuthorizeFilter(IAppJob app) : base() => m_app = app;
+        readonly IApp m_app;
+        public AuthorizeFilter(IApp app) : base() => m_app = app;
         public bool AllowMultiple { get { return false; } }
         public async Task<HttpResponseMessage> ExecuteActionFilterAsync(HttpActionContext actionContext,
             CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)

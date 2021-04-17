@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="StackExchange.Redis">
+      <HintPath>..\DLL\StackExchange.Redis.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,7 +57,10 @@
   <ItemGroup>
     <Compile Include="DashboardAuthorize.cs" />
     <Compile Include="CONFIG.cs" />
-    <Compile Include="IAppJob.cs" />
+    <Compile Include="DictionaryExtension.cs" />
+    <Compile Include="IApp.cs" />
+    <Compile Include="IJob.cs" />
+    <Compile Include="oBuffer.cs" />
     <Compile Include="oResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

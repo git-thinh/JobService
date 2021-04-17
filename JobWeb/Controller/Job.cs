@@ -36,7 +36,7 @@ namespace JobWeb
                         {
                             var updater = new ContainerBuilder();
                             updater.RegisterType(type);
-                            updater.Update(m_app.Container);
+                            updater.Update(m_app.AutofacContainer);
 
                             var job = (IBackgroundJobPerformer)Activator.CreateInstance(type, new object[] { m_app });
                             var jobId = BackgroundJob.Enqueue(() => job.Perform(null));
@@ -76,7 +76,7 @@ namespace JobWeb
                         {
                             var updater = new ContainerBuilder();
                             updater.RegisterType(type);
-                            updater.Update(m_app.Container);
+                            updater.Update(m_app.AutofacContainer);
 
                             var job = (IBackgroundJobPerformer)Activator.CreateInstance(type, new object[] { m_app });
                             //var jobId = BackgroundJob.Enqueue(() => job.Perform(null));
@@ -121,7 +121,7 @@ namespace JobWeb
                         {
                             var updater = new ContainerBuilder();
                             updater.RegisterType(type);
-                            updater.Update(m_app.Container);
+                            updater.Update(m_app.AutofacContainer);
 
                             var job = (IBackgroundJobPerformer)Activator.CreateInstance(type, new object[] { m_app });
                             BackgroundJob.Enqueue(() => job.Perform(null));
@@ -163,7 +163,7 @@ namespace JobWeb
                     {
                         var updater = new ContainerBuilder();
                         updater.RegisterType(type);
-                        updater.Update(m_app.Container);
+                        updater.Update(m_app.AutofacContainer);
 
                         var job = (IBackgroundJobPerformer)Activator.CreateInstance(type, new object[] { m_app });
                         var jobId = BackgroundJob.Enqueue(() => job.Perform(null));
