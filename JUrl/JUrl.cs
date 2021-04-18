@@ -34,7 +34,7 @@ public class JUrl : IJob
 
             data.Add("_job_ok", ok == "OK");
             data.Add("_job", "JUrl");
-            data.Add("_result", buf.Buffer);
+            data.Add("_data", buf.Buffer);
 
             m_app.RedisUpdate("URL", url, data);
 

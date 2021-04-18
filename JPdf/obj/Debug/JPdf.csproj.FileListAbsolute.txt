@@ -43,3 +43,6 @@ D:\tt\core\JobService\JPdf\bin\Debug\PdfSharp.xml
 D:\tt\core\JobService\JPdf\bin\Debug\PdfSharp.Charting.xml
 D:\tt\core\JobService\JPdf\bin\Debug\de\PdfSharp.resources.dll
 D:\tt\core\JobService\JPdf\bin\Debug\de\PdfSharp.Charting.resources.dll
+D:\tt\core\JobService\JPdf\bin\Debug\PdfiumViewer.dll
+D:\tt\core\JobService\JPdf\bin\Debug\PdfiumViewer.pdb
+D:\tt\core\JobService\JPdf\bin\Debug\nl\PdfiumViewer.resources.dll

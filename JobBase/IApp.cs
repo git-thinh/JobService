@@ -17,6 +17,8 @@ public interface IApp
     string[] RedisSearchKeys(string keyContainText);
     void RedisPublish(string message);
     void RedisUpdate(string storeKey, string itemKey, Dictionary<string, object> data);
+    void RedisUpdate(string storeKey, string itemKey, byte[] data);
+    void RedisUpdate(string storeKey, string itemKey, string data);
     void RedisDelete(string storeKey, string itemKey);
     void RedisDeleteAll(string storeKey);
 }

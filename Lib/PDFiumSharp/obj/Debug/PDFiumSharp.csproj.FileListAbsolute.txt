@@ -1,0 +1,1 @@
+D:\tt\core\JobService\Lib\PDFiumSharp\obj\Debug\PDFiumSharp.csproj.CoreCompileInputs.cache

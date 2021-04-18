@@ -96,6 +96,8 @@ namespace JobWeb
         public string[] RedisSearchKeys(string keyContainText) => Redis.RedisSearchKeys(keyContainText);
         public void RedisPublish(string message) => Redis.Publish(message);
         public void RedisUpdate(string storeKey, string itemKey, Dictionary<string, object> data) => Redis.Update(storeKey, itemKey, data);
+        public void RedisUpdate(string storeKey, string itemKey, byte[] data) => Redis.Update(storeKey, itemKey, data);
+        public void RedisUpdate(string storeKey, string itemKey, string data) => Redis.Update(storeKey, itemKey, data);
         public void RedisDelete(string storeKey, string itemKey) => Redis.Delete(storeKey, itemKey);
         public void RedisDeleteAll(string storeKey) => Redis.DeleteAll(storeKey);
 

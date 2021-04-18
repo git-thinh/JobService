@@ -100,6 +100,28 @@ namespace JobWeb
                 m_app.RedisSubscriber.Publish("MESSAGE", message);
         }
 
+        public static void Update(string storeKey, string itemKey, byte[] data)
+        {
+            var dic = new Dictionary<string, object>() { };
+            dic.Add("_rd_action", "ITEM_UPDATE");
+            dic.Add("_rd_key_store", storeKey);
+            dic.Add("_rd_key_item", itemKey);
+            dic.Add("_data", data);
+            m_queue.Enqueue(dic);
+            signalSet();
+        }
+
+        public static void Update(string storeKey, string itemKey, string data)
+        {
+            var dic = new Dictionary<string, object>() { };
+            dic.Add("_rd_action", "ITEM_UPDATE");
+            dic.Add("_rd_key_store", storeKey);
+            dic.Add("_rd_key_item", itemKey);
+            dic.Add("_data", data);
+            m_queue.Enqueue(dic);
+            signalSet();
+        }
+
         public static void Update(string storeKey, string itemKey, Dictionary<string, object> data)
         {
             if (data == null) data = new Dictionary<string, object>() { };
@@ -178,7 +200,7 @@ namespace JobWeb
                     string rd_action = dic.Get("_rd_action"),
                         key_store = dic.Get("_rd_key_store"),
                         key_item = dic.Get("_rd_key_item");
-                    object _result = dic.Get<object>("_result", null);
+                    object _result = dic.Get<object>("_data", null);
 
                     switch (rd_action)
                     {
@@ -252,7 +274,7 @@ namespace JobWeb
                     if (redis_publish)
                     {
                         it.Add("_rd_ok", oks[i]);
-                        if (it.ContainsKey("_result")) it.Remove("_result");
+                        if (it.ContainsKey("_data")) it.Remove("_data");
                         m_app.RedisPublish(JsonConvert.SerializeObject(it));
                     }
                 }

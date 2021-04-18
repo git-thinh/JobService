@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{438914B6-5D1C-482C-B942-5C0E057EEF6F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PdfiumViewer</RootNamespace>
+    <AssemblyName>PdfiumViewer</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\PdfiumViewer.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomScrollControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="HitTest.cs" />
+    <Compile Include="IPdfDocument.cs" />
+    <Compile Include="IPdfMarker.cs" />
+    <Compile Include="LinkClickEventHandler.cs" />
+    <Compile Include="LINQ\Action.cs" />
+    <Compile Include="LINQ\ConcurrentDictionary.cs" />
+    <Compile Include="LINQ\Dynamic.cs" />
+    <Compile Include="LINQ\Func.cs" />
+    <Compile Include="LINQ\HashSet.cs" />
+    <Compile Include="LINQ\mono-2.8.1\corlib\System\Action.cs" />
+    <Compile Include="LINQ\mono-2.8.1\corlib\System\Funcs.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Collections.Generic\HashSet.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\BinaryExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\ConditionalExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\ConstantExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\ElementInit.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\EmitContext.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\Expression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\ExpressionPrinter.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\ExpressionTransformer.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\ExpressionType.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\ExpressionVisitor.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\Expression_T.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\Extensions.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\InvocationExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\LambdaExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\ListInitExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\MemberAssignment.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\MemberBinding.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\MemberBindingType.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\MemberExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\MemberInitExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\MemberListBinding.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\MemberMemberBinding.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\MethodCallExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\NewArrayExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\NewExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\ParameterExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\TypeBinaryExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq.Expressions\UnaryExpression.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\Check.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\Enumerable.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\EnumerableExecutor.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\EnumerableExecutor_T.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\EnumerableQuery.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\EnumerableQuery_T.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\Grouping.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\IGrouping.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\ILookup_T.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\IOrderedEnumerable_T.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\IOrderedQueryable.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\IOrderedQueryable_T.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\IQueryable.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\IQueryable_T.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\IQueryProvider.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\Lookup.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\OrderedEnumerable.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\OrderedParallelQuery.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\OrderedSequence.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\ParallelEnumerable.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\ParallelExecutionMode.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\ParallelMergeOptions.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\ParallelQuery.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\Queryable.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\QueryableEnumerable.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\QueryableTransformer.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\QuickSort.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\SortContext.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\SortDirection.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Linq\SortSequenceContext.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Runtime.CompilerServices\DynamicAttribute.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Runtime.CompilerServices\ExecutionScope.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Runtime.CompilerServices\ExtensionAttribute.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Runtime.CompilerServices\IStrongBox.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Core\System.Runtime.CompilerServices\StrongBox_T.cs" />
+    <Compile Include="LINQ\mono-2.8.1\System.Data.Linq\src\DbLinq\MonoTODOAttribute.cs" />
+    <Compile Include="LINQ\Tuple\IStructuralComparable.cs" />
+    <Compile Include="LINQ\Tuple\IStructuralEquatable.cs" />
+    <Compile Include="LINQ\Tuple\Tuple.cs" />
+    <Compile Include="MouseWheelMode.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="NativeMethods.Pdfium.cs" />
+    <Compile Include="NativeTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PanningZoomingScrollControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PasswordForm.Designer.cs">
+      <DependentUpon>PasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PdfBookmarkCollection.cs" />
+    <Compile Include="PdfiumResolveEventHandler.cs" />
+    <Compile Include="PdfiumResolver.cs" />
+    <Compile Include="PdfPrintMultiplePages.cs" />
+    <Compile Include="PdfPrintSettings.cs" />
+    <Compile Include="PdfRectangle.cs" />
+    <Compile Include="PdfError.cs" />
+    <Compile Include="PdfException.cs" />
+    <Compile Include="PdfDocument.cs" />
+    <Compile Include="PdfFile.cs" />
+    <Compile Include="PdfMarker.cs" />
+    <Compile Include="PdfMarkerCollection.cs" />
+    <Compile Include="PdfPoint.cs" />
+    <Compile Include="PdfInformation.cs" />
+    <Compile Include="PdfSearchManager.cs" />
+    <Compile Include="PdfTextSpan.cs" />
+    <Compile Include="StreamManager.cs" />
+    <Compile Include="PdfPageLink.cs" />
+    <Compile Include="PdfPageLinks.cs" />
+    <Compile Include="PdfPrintMode.cs" />
+    <Compile Include="PdfRenderFlags.cs" />
+    <Compile Include="PdfLibrary.cs" />
+    <Compile Include="PdfMatch.cs" />
+    <Compile Include="PdfPrintDocument.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PdfRenderer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PdfMatches.cs" />
+    <Compile Include="PdfRotation.cs" />
+    <Compile Include="PdfViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PdfViewer.Designer.cs">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PdfViewerZoomMode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ScrollAction.cs" />
+    <Compile Include="SetCursorEventHandler.cs" />
+    <Compile Include="ShadeBorder.cs" />
+    <Compile Include="StreamExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Key.snk" />
+    <None Include="Resources\zoom_out.png" />
+    <None Include="Resources\zoom_in.png" />
+    <None Include="Resources\printer.png" />
+    <None Include="Resources\disk_blue.png" />
+    <None Include="Resources\ShadeBorder-NE.png" />
+    <None Include="Resources\ShadeBorder-N.png" />
+    <None Include="Resources\ShadeBorder-E.png" />
+    <None Include="Resources\ShadeBorder-W.png" />
+    <None Include="Resources\ShadeBorder-SW.png" />
+    <None Include="Resources\ShadeBorder-SE.png" />
+    <None Include="Resources\ShadeBorder-S.png" />
+    <None Include="Resources\ShadeBorder-NW.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PasswordForm.resx">
+      <DependentUpon>PasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PdfViewer.nl.resx">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PdfViewer.resx">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.nl.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="pan.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LINQ\mono-2.8.1\corlib\System.Diagnostics\Crap.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="LINQ\mono-2.8.1\NewFolder\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
