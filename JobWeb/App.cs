@@ -101,22 +101,25 @@ namespace JobWeb
 
         public void JobTest()
         {
+            string jobName = "";
+            jobName = "JUrl";
+            jobName = "JPdf";
 
-            //string pathDll = HostingEnvironment.MapPath("~/Jobs/JUrl.dll");
-            //if (File.Exists(pathDll))
-            //{
-            //    var asm = Assembly.LoadFrom(pathDll);
-            //    var type = asm.GetTypes().Where(x => x.Name != "<>c").Take(1).SingleOrDefault();
-            //    if (type != null)
-            //    {
-            //        var updater = new ContainerBuilder();
-            //        updater.RegisterType(type);
-            //        updater.Update(this.AutofacContainer);
+            string pathDll = HostingEnvironment.MapPath("~/Jobs/"+jobName+".dll");
+            if (File.Exists(pathDll))
+            {
+                var asm = Assembly.LoadFrom(pathDll);
+                var type = asm.GetTypes().Where(x => x.Name != "<>c").Take(1).SingleOrDefault();
+                if (type != null)
+                {
+                    var updater = new ContainerBuilder();
+                    updater.RegisterType(type);
+                    updater.Update(this.AutofacContainer);
 
-            //        var job = (IJob)Activator.CreateInstance(type, new object[] { (IApp)(this) });
-            //        var jobId = BackgroundJob.Enqueue(() => job.test(null));
-            //    }
-            //}
+                    var job = (IJob)Activator.CreateInstance(type, new object[] { (IApp)(this) });
+                    var jobId = BackgroundJob.Enqueue(() => job.test(null));
+                }
+            }
         }
     }
 }

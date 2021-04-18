@@ -17,6 +17,8 @@ namespace JobWeb
     {
         public void Configuration(IAppBuilder appBuilder)
         {
+            ThreadPool.SetMinThreads(10001, 10001);
+
             var app = new AppBuilderProvider(appBuilder);
             //Microsoft.AspNet.Identity.Owin
             appBuilder.CreatePerOwinContext(() => app);

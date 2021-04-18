@@ -77,6 +77,44 @@ namespace CSRedis
         /// </summary>
         int ReconnectWait { get; set; }
 
+        #region Connection
+        /// <summary>
+        /// Authenticate to the server
+        /// </summary>
+        /// <param name="password">Redis server password</param>
+        /// <returns>Status message</returns>
+        string Auth(string password);
+
+        /// <summary>
+        /// Echo the given string
+        /// </summary>
+        /// <param name="message">Message to echo</param>
+        /// <returns>Message</returns>
+        string Echo(string message);
+
+        /// <summary>
+        /// Ping the server
+        /// </summary>
+        /// <returns>Status message</returns>
+        string Ping();
+
+        /// <summary>
+        /// Close the connection
+        /// </summary>
+        /// <returns>Status message</returns>
+        string Quit();
+
+        /// <summary>
+        /// Change the selected database for the current connection
+        /// </summary>
+        /// <param name="index">Zero-based database index</param>
+        /// <returns>Status message</returns>
+        string Select(int index);
+
+        #endregion
+
+        #region Sets
+
 
 
         /// <summary>
@@ -127,6 +165,169 @@ namespace CSRedis
         string Set(string key, object value, long? expirationMilliseconds = null, RedisExistence? condition = null);
 
 
+
+
+        /// <summary>
+        /// Add one or more members to a set
+        /// </summary>
+        /// <param name="key">Set key</param>
+        /// <param name="members">Members to add to set</param>
+        /// <returns>Number of elements added to set</returns>
+        long SAdd(string key, params object[] members);
+
+        /// <summary>
+        /// Get the number of members in a set
+        /// </summary>
+        /// <param name="key">Set key</param>
+        /// <returns>Number of elements in set</returns>
+        long SCard(string key);
+
+        /// <summary>
+        /// Subtract multiple sets
+        /// </summary>
+        /// <param name="keys">Set keys to subtract</param>
+        /// <returns>Array of elements in resulting set</returns>
+        string[] SDiff(params string[] keys);
+
+        /// <summary>
+        /// Subtract multiple sets and store the resulting set in a key
+        /// </summary>
+        /// <param name="destination">Destination key</param>
+        /// <param name="keys">Set keys to subtract</param>
+        /// <returns>Number of elements in the resulting set</returns>
+        long SDiffStore(string destination, params string[] keys);
+
+
+        /// <summary>
+        /// Intersect multiple sets
+        /// </summary>
+        /// <param name="keys">Set keys to intersect</param>
+        /// <returns>Array of elements in resulting set</returns>
+        string[] SInter(params string[] keys);
+
+
+
+
+        /// <summary>
+        /// Intersect multiple sets and store the resulting set in a key
+        /// </summary>
+        /// <param name="destination">Destination key</param>
+        /// <param name="keys">Set keys to intersect</param>
+        /// <returns>Number of elements in resulting set</returns>
+        long SInterStore(string destination, params string[] keys);
+
+
+
+
+        /// <summary>
+        /// Determine if a given value is a member of a set
+        /// </summary>
+        /// <param name="key">Set key</param>
+        /// <param name="member">Member to lookup</param>
+        /// <returns>True if member exists in set</returns>
+        bool SIsMember(string key, object member);
+
+
+
+
+        /// <summary>
+        /// Get all the members in a set
+        /// </summary>
+        /// <param name="key">Set key</param>
+        /// <returns>All elements in the set</returns>
+        string[] SMembers(string key);
+
+
+
+
+        /// <summary>
+        /// Move a member from one set to another
+        /// </summary>
+        /// <param name="source">Source key</param>
+        /// <param name="destination">Destination key</param>
+        /// <param name="member">Member to move</param>
+        /// <returns>True if element was moved</returns>
+        bool SMove(string source, string destination, object member);
+
+
+
+
+        /// <summary>
+        /// Remove and
+        /// </summary>
+        /// <param name="key">Set key</param>
+        /// <returns>The removed element</returns>
+        string SPop(string key);
+
+
+
+
+        /// <summary>
+        /// Get a random member from a set
+        /// </summary>
+        /// <param name="key">Set key</param>
+        /// <returns>One random element from set</returns>
+        string SRandMember(string key);
+
+
+
+
+        /// <summary>
+        /// Get one or more random members from a set
+        /// </summary>
+        /// <param name="key">Set key</param>
+        /// <param name="count">Number of elements to return</param>
+        /// <returns>One or more random elements from set</returns>
+        string[] SRandMember(string key, long count);
+
+
+
+
+        /// <summary>
+        /// Remove one or more members from a set
+        /// </summary>
+        /// <param name="key">Set key</param>
+        /// <param name="members">Set members to remove</param>
+        /// <returns>Number of elements removed from set</returns>
+        long SRem(string key, params object[] members);
+
+
+
+
+        /// <summary>
+        /// Add multiple sets
+        /// </summary>
+        /// <param name="keys">Set keys to union</param>
+        /// <returns>Array of elements in resulting set</returns>
+        string[] SUnion(params string[] keys);
+
+
+
+
+        /// <summary>
+        /// Add multiple sets and store the resulting set in a key
+        /// </summary>
+        /// <param name="destination">Destination key</param>
+        /// <param name="keys">Set keys to union</param>
+        /// <returns>Number of elements in resulting set</returns>
+        long SUnionStore(string destination, params string[] keys);
+
+
+
+
+        /// <summary>
+        /// Iterate the elements of a set field
+        /// </summary>
+        /// <param name="key">Set key</param>
+        /// <param name="cursor">The cursor returned by the server in the previous call, or 0 if this is the first call</param>
+        /// <param name="pattern">Glob-style pattern to filter returned elements</param>
+        /// <param name="count">Maximum number of elements to return</param>
+        /// <returns>Updated cursor and result set</returns>
+        RedisScan<string> SScan(string key, long cursor, string pattern = null, long? count = null);
+
+
+
+        #endregion
 
 
 

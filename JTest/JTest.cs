@@ -2,20 +2,22 @@
 using Hangfire.Console;
 using Hangfire.Server;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
 //[LogEverything]
-public class JTest : IBackgroundJobPerformer
+public class JTest : IJob
 {
-    readonly IAppJob m_app;
-    public JTest(IAppJob app) => m_app = app;
+    readonly IApp m_app;
+    public JTest(IApp app) => m_app = app;
+
+    CancellationTokenSource cancellationToken;
+    public void Cancel() => cancellationToken.Cancel();
 
     //[ProcessQueue("queueName")]
     //[LogEverything]
-    CancellationTokenSource cancellationToken;
-    public void Cancel() => cancellationToken.Cancel();
-    public object Perform(PerformContext context)
+    public void test(PerformContext context)
     {
         cancellationToken = new CancellationTokenSource();
 
@@ -57,6 +59,7 @@ public class JTest : IBackgroundJobPerformer
         ////// update value for previously created progress bar
         ////progress.SetValue(50);
 
-        return null;
     }
+
+    public void call(PerformContext context, Dictionary<string, object> data) => test(context);
 }

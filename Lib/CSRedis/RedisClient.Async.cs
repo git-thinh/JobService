@@ -87,6 +87,7 @@ namespace CSRedis
         {
             return WriteAsync(RedisCommands.Select(index));
         }
+
         #endregion
 
         #region Keys

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,14 @@ namespace JobWeb
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            redisClient = new CSRedis.RedisClient("localhost", 1000);
+            //string conStr = "127.0.0.1:6379,asyncPipeline=true,preheat=100,poolsize=100";
+            //127.0.0.1[:6379],password=123456,defaultDatabase=13,poolsize=50,ssl=false,writeBuffer=10240,prefix=key
+            string redisConnectStr = ConfigurationManager.AppSettings["REDIS_CONNECT"];
+
+            var arr = redisConnectStr.Split(new char[] { ':', ',' });
+            redisClient = new CSRedis.RedisClient(arr[0], int.Parse(arr[1]));
+            redisClient.Select(1);
+
             redisClient.Set("1mb", new string('x', 1048576));
             redisClient.Set("500kb", new string('x', 524288));
         }

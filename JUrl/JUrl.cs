@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using Newtonsoft.Json;
+using LZ4;
 
 public class JUrl : IJob
 {
@@ -24,6 +25,12 @@ public class JUrl : IJob
         {
             var buf = downloadUrl(url);
             string ok = buf.Buffer != null ? "OK" : "FAIL";
+
+            var lz = LZ4Codec.Wrap(buf.Buffer);
+            //var decompressed = LZ4Codec.Unwrap(compressed);
+            long s1 = buf.Buffer.Length;
+            long s2 = lz.Length;
+            buf.Buffer = lz;
 
             data.Add("_job_ok", ok == "OK");
             data.Add("_job", "JUrl");

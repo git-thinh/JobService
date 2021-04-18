@@ -249,6 +249,39 @@
             Get or set the amount of time (milliseconds) to wait between reconnect attempts
             </summary>
         </member>
+        <member name="M:CSRedis.IRedisClient.Auth(System.String)">
+            <summary>
+            Authenticate to the server
+            </summary>
+            <param name="password">Redis server password</param>
+            <returns>Status message</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.Echo(System.String)">
+            <summary>
+            Echo the given string
+            </summary>
+            <param name="message">Message to echo</param>
+            <returns>Message</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.Ping">
+            <summary>
+            Ping the server
+            </summary>
+            <returns>Status message</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.Quit">
+            <summary>
+            Close the connection
+            </summary>
+            <returns>Status message</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.Select(System.Int32)">
+            <summary>
+            Change the selected database for the current connection
+            </summary>
+            <param name="index">Zero-based database index</param>
+            <returns>Status message</returns>
+        </member>
         <member name="M:CSRedis.IRedisClient.Set(System.String,System.Object)">
             <summary>
             Set the string value of a key
@@ -286,6 +319,130 @@
             <param name="expirationMilliseconds">Set expiration to nearest millisecond</param>
             <param name="condition">Set key if existence condition</param>
             <returns>Status code, or null if condition not met</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SAdd(System.String,System.Object[])">
+            <summary>
+            Add one or more members to a set
+            </summary>
+            <param name="key">Set key</param>
+            <param name="members">Members to add to set</param>
+            <returns>Number of elements added to set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SCard(System.String)">
+            <summary>
+            Get the number of members in a set
+            </summary>
+            <param name="key">Set key</param>
+            <returns>Number of elements in set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SDiff(System.String[])">
+            <summary>
+            Subtract multiple sets
+            </summary>
+            <param name="keys">Set keys to subtract</param>
+            <returns>Array of elements in resulting set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SDiffStore(System.String,System.String[])">
+            <summary>
+            Subtract multiple sets and store the resulting set in a key
+            </summary>
+            <param name="destination">Destination key</param>
+            <param name="keys">Set keys to subtract</param>
+            <returns>Number of elements in the resulting set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SInter(System.String[])">
+            <summary>
+            Intersect multiple sets
+            </summary>
+            <param name="keys">Set keys to intersect</param>
+            <returns>Array of elements in resulting set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SInterStore(System.String,System.String[])">
+            <summary>
+            Intersect multiple sets and store the resulting set in a key
+            </summary>
+            <param name="destination">Destination key</param>
+            <param name="keys">Set keys to intersect</param>
+            <returns>Number of elements in resulting set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SIsMember(System.String,System.Object)">
+            <summary>
+            Determine if a given value is a member of a set
+            </summary>
+            <param name="key">Set key</param>
+            <param name="member">Member to lookup</param>
+            <returns>True if member exists in set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SMembers(System.String)">
+            <summary>
+            Get all the members in a set
+            </summary>
+            <param name="key">Set key</param>
+            <returns>All elements in the set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SMove(System.String,System.String,System.Object)">
+            <summary>
+            Move a member from one set to another
+            </summary>
+            <param name="source">Source key</param>
+            <param name="destination">Destination key</param>
+            <param name="member">Member to move</param>
+            <returns>True if element was moved</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SPop(System.String)">
+            <summary>
+            Remove and
+            </summary>
+            <param name="key">Set key</param>
+            <returns>The removed element</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SRandMember(System.String)">
+            <summary>
+            Get a random member from a set
+            </summary>
+            <param name="key">Set key</param>
+            <returns>One random element from set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SRandMember(System.String,System.Int64)">
+            <summary>
+            Get one or more random members from a set
+            </summary>
+            <param name="key">Set key</param>
+            <param name="count">Number of elements to return</param>
+            <returns>One or more random elements from set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SRem(System.String,System.Object[])">
+            <summary>
+            Remove one or more members from a set
+            </summary>
+            <param name="key">Set key</param>
+            <param name="members">Set members to remove</param>
+            <returns>Number of elements removed from set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SUnion(System.String[])">
+            <summary>
+            Add multiple sets
+            </summary>
+            <param name="keys">Set keys to union</param>
+            <returns>Array of elements in resulting set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SUnionStore(System.String,System.String[])">
+            <summary>
+            Add multiple sets and store the resulting set in a key
+            </summary>
+            <param name="destination">Destination key</param>
+            <param name="keys">Set keys to union</param>
+            <returns>Number of elements in resulting set</returns>
+        </member>
+        <member name="M:CSRedis.IRedisClient.SScan(System.String,System.Int64,System.String,System.Nullable{System.Int64})">
+            <summary>
+            Iterate the elements of a set field
+            </summary>
+            <param name="key">Set key</param>
+            <param name="cursor">The cursor returned by the server in the previous call, or 0 if this is the first call</param>
+            <param name="pattern">Glob-style pattern to filter returned elements</param>
+            <param name="count">Maximum number of elements to return</param>
+            <returns>Updated cursor and result set</returns>
         </member>
         <member name="M:CSRedis.IRedisClient.Get(System.String)">
             <summary>
@@ -1820,39 +1977,6 @@
             <param name="args">Command arguments</param>
             <returns>Redis object</returns>
         </member>
-        <member name="M:CSRedis.IRedisClientSync.Auth(System.String)">
-            <summary>
-            Authenticate to the server
-            </summary>
-            <param name="password">Redis server password</param>
-            <returns>Status message</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.Echo(System.String)">
-            <summary>
-            Echo the given string
-            </summary>
-            <param name="message">Message to echo</param>
-            <returns>Message</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.Ping">
-            <summary>
-            Ping the server
-            </summary>
-            <returns>Status message</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.Quit">
-            <summary>
-            Close the connection
-            </summary>
-            <returns>Status message</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.Select(System.Int32)">
-            <summary>
-            Change the selected database for the current connection
-            </summary>
-            <param name="index">Zero-based database index</param>
-            <returns>Status message</returns>
-        </member>
         <member name="M:CSRedis.IRedisClientSync.Del(System.String[])">
             <summary>
             Delete a key
@@ -2420,130 +2544,6 @@
             <param name="key">List key</param>
             <param name="values">Values to push</param>
             <returns>Length of list after push</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SAdd(System.String,System.Object[])">
-            <summary>
-            Add one or more members to a set
-            </summary>
-            <param name="key">Set key</param>
-            <param name="members">Members to add to set</param>
-            <returns>Number of elements added to set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SCard(System.String)">
-            <summary>
-            Get the number of members in a set
-            </summary>
-            <param name="key">Set key</param>
-            <returns>Number of elements in set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SDiff(System.String[])">
-            <summary>
-            Subtract multiple sets
-            </summary>
-            <param name="keys">Set keys to subtract</param>
-            <returns>Array of elements in resulting set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SDiffStore(System.String,System.String[])">
-            <summary>
-            Subtract multiple sets and store the resulting set in a key
-            </summary>
-            <param name="destination">Destination key</param>
-            <param name="keys">Set keys to subtract</param>
-            <returns>Number of elements in the resulting set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SInter(System.String[])">
-            <summary>
-            Intersect multiple sets
-            </summary>
-            <param name="keys">Set keys to intersect</param>
-            <returns>Array of elements in resulting set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SInterStore(System.String,System.String[])">
-            <summary>
-            Intersect multiple sets and store the resulting set in a key
-            </summary>
-            <param name="destination">Destination key</param>
-            <param name="keys">Set keys to intersect</param>
-            <returns>Number of elements in resulting set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SIsMember(System.String,System.Object)">
-            <summary>
-            Determine if a given value is a member of a set
-            </summary>
-            <param name="key">Set key</param>
-            <param name="member">Member to lookup</param>
-            <returns>True if member exists in set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SMembers(System.String)">
-            <summary>
-            Get all the members in a set
-            </summary>
-            <param name="key">Set key</param>
-            <returns>All elements in the set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SMove(System.String,System.String,System.Object)">
-            <summary>
-            Move a member from one set to another
-            </summary>
-            <param name="source">Source key</param>
-            <param name="destination">Destination key</param>
-            <param name="member">Member to move</param>
-            <returns>True if element was moved</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SPop(System.String)">
-            <summary>
-            Remove and
-            </summary>
-            <param name="key">Set key</param>
-            <returns>The removed element</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SRandMember(System.String)">
-            <summary>
-            Get a random member from a set
-            </summary>
-            <param name="key">Set key</param>
-            <returns>One random element from set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SRandMember(System.String,System.Int64)">
-            <summary>
-            Get one or more random members from a set
-            </summary>
-            <param name="key">Set key</param>
-            <param name="count">Number of elements to return</param>
-            <returns>One or more random elements from set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SRem(System.String,System.Object[])">
-            <summary>
-            Remove one or more members from a set
-            </summary>
-            <param name="key">Set key</param>
-            <param name="members">Set members to remove</param>
-            <returns>Number of elements removed from set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SUnion(System.String[])">
-            <summary>
-            Add multiple sets
-            </summary>
-            <param name="keys">Set keys to union</param>
-            <returns>Array of elements in resulting set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SUnionStore(System.String,System.String[])">
-            <summary>
-            Add multiple sets and store the resulting set in a key
-            </summary>
-            <param name="destination">Destination key</param>
-            <param name="keys">Set keys to union</param>
-            <returns>Number of elements in resulting set</returns>
-        </member>
-        <member name="M:CSRedis.IRedisClientSync.SScan(System.String,System.Int64,System.String,System.Nullable{System.Int64})">
-            <summary>
-            Iterate the elements of a set field
-            </summary>
-            <param name="key">Set key</param>
-            <param name="cursor">The cursor returned by the server in the previous call, or 0 if this is the first call</param>
-            <param name="pattern">Glob-style pattern to filter returned elements</param>
-            <param name="count">Maximum number of elements to return</param>
-            <returns>Updated cursor and result set</returns>
         </member>
         <member name="M:CSRedis.IRedisClientSync.ZAdd``2(System.String,System.Tuple{``0,``1}[])">
             <summary>
