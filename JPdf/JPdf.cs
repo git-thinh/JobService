@@ -61,7 +61,6 @@ public class JPdf : IJob
 
                 outputDocument.AddPage(inputDocument.Pages[idx]);
                 //outputDocument.Save(@"C:\temp\" + i + "-.pdf");
-
                 //outputDocument.Save()
             }
 
