@@ -1,0 +1,28 @@
+$ vim /etc/systemd/system/finfo.service
+
+
+[Unit]
+Description="Get size: width, height of file AI,EPS,PDF,SVG"
+
+[Service]
+ExecStart=/usr/bin/node /root/finfo/finfo.js
+WorkingDirectory=/root/finfo
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=LPA_FINFO
+Environment=NODE_ENV=production PORT=6785
+
+[Install]
+WantedBy=multi-user.target
+
+
+$ systemctl enable finfo.service
+$ systemctl start finfo.service
+
+$ systemctl stop finfo.service
+$ systemctl restart finfo.service
+
+$ systemctl disable finfo.service
+$ systemctl status finfo.service

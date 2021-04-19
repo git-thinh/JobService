@@ -1,0 +1,28 @@
+$ nano /etc/systemd/system/pdf.service
+
+
+[Unit]
+Description="Convert AI,EPS to PDF"
+
+[Service]
+ExecStart=/usr/bin/node /root/pdf/pdf.js
+WorkingDirectory=/root/pdf
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=LPA_AI_2_PDF
+Environment=NODE_ENV=production PORT=6789
+
+[Install]
+WantedBy=multi-user.target
+
+
+$ systemctl enable pdf.service
+$ systemctl start pdf.service
+
+$ systemctl stop pdf.service
+$ systemctl restart pdf.service
+
+$ systemctl disable pdf.service
+$ systemctl status pdf.service

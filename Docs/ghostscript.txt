@@ -1,0 +1,9 @@
+
+gswin64.exe -dNOPAUSE -dBATCH -sDEVICE=png16m -sOutputFile=1.png input.ai
+
+gswin64.exe -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=out.pdf input.ai
+gswin64.exe -q -dBATCH -dNOPAUSE -sDEVICE=pnggray -d300 -dFirstPage=1 -dLastPage=1 -sOutputFile=1.tiff out.pdf
+gswin64.exe -q -dBATCH -dNOPAUSE -sDEVICE=png16m -d300 -dFirstPage=1 -dLastPage=1 -sOutputFile=1.png out.pdf
+
+gswin64.exe -dNOPAUSE -dBATCH -sDEVICE=pngalpha -r72 -sOutputFile=out.png out.pdf
+gswin64.exe -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT -dMaxBitmap=500000000 -dAlignToPixels=0 -dGridFitTT=2 -sDEVICE=pngalpha -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -r150 -sOutputFile=2.png out.pdf

@@ -1,0 +1,58 @@
+# INSTALL:
+
+	apt install openjdk-11-jre-headless  # version 11.0.8+10-0ubuntu1~20.04, or
+	apt install default-jre              # version 2:1.11-72
+	apt install openjdk-13-jre-headless  # version 13.0.3+3-1ubuntu2
+	apt install openjdk-14-jre-headless  # version 14.0.1+7-1ubuntu1
+	apt install openjdk-8-jre-headless   # version 8u265-b01-0ubuntu2~20.04
+
+
+	wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+	sudo apt-get install apt-transport-https
+	echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
+
+* Case 1:
+
+	sudo apt-get update && sudo apt-get install elasticsearch
+
+* Case 2:
+
+	echo "deb https://artifacts.elastic.co/packages/oss-7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
+	wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.0-amd64.deb
+	wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.0-amd64.deb.sha512
+	shasum -a 512 -c elasticsearch-7.9.0-amd64.deb.sha512 
+	sudo dpkg -i elasticsearch-7.9.0-amd64.deb
+
+-------------------------------------------
+# RUN:
+
+	sudo -i service elasticsearch start
+	sudo -i service elasticsearch stop
+
+	sudo /bin/systemctl daemon-reload
+	sudo /bin/systemctl enable elasticsearch.service
+	
+* Elasticsearch can be started and stopped as follows:
+
+	sudo systemctl start elasticsearch.service
+	sudo systemctl stop elasticsearch.service
+-------------------------------------------
+
+sudo vim /etc/elasticsearch/elasticsearch.yml
+
+transport.host: localhost
+transport.tcp.port: 9300
+http.port: 9200
+
+sudo ufw allow 9200
+sudo ufw allow 9300
+
+
+-------------------------------------------
+
+lsof -i :9200
+ps -fp 124757
+
+
+
+

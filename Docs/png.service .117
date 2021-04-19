@@ -1,0 +1,28 @@
+$ nano /etc/systemd/system/png.service
+
+
+[Unit]
+Description="Convert PDF,AI,EPS to PNG"
+
+[Service]
+ExecStart=/usr/bin/node /home/b2btestadm/png/png.js
+WorkingDirectory=/home/b2btestadm/png
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=LPA_PDF_2_PNG
+Environment=NODE_ENV=production PORT=6780
+
+[Install]
+WantedBy=multi-user.target
+
+
+$ systemctl enable png.service
+$ systemctl start png.service
+
+$ systemctl stop png.service
+$ systemctl restart png.service
+
+$ systemctl disable png.service
+$ systemctl status png.service

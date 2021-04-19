@@ -1,0 +1,44 @@
+./redis-server.exe --service-install redis.windows-service.conf --loglevel verbose
+sc.exe delete Redis
+
+
+redis-server.exe --service-install --service-name redis5_1000 --port 1000 --dbfilename 1000.rdb --logfile 1000.log
+sc.exe delete redis5_1000
+redis-server --dbfilename dump.rdb --dir /home/user/dbs
+
+
+redis-server.exe --port 6000 --dbfilename 6000.rdb --logfile 6000.log
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+* None simple
+redis-server.exe --service-install --service-name r5.6379 --port 6379 --dbfilename 6379.rdb --loglevel verbose --logfile 6379.log
+sc delete r5.6379
+
+* Master 
+redis-server.exe --service-run --service-name rm5.1000 --port 1000 --dbfilename 1000.rdb --logfile 1000.log --bind 127.0.0.1 --appendonly yes --appendfilename 1000.aof
+sc delete rm5.1000
+
+* Slave
+redis-server.exe --service-install --service-name rm5.1001 1001.conf
+sc delete rs5.1001
+redis-server.exe --service-install --service-name rm5.1002 1002.conf
+sc delete rs5.1002
+
+#1001.conf
+--------------------------------
+bind 127.0.0.1
+port 1001
+logfile 1001.log
+dbfilename 1001.rdb
+
+databases 1
+protected-mode no
+daemonize yes
+loglevel verbose
+slaveof 127.0.0.1 1000
+---------------------------------
+
+
+services.msc

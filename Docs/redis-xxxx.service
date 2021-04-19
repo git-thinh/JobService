@@ -1,0 +1,78 @@
+./redis-server --bind 10.1.2.118 --port 2000 --dbfilename 2000.rdb --logfile 2000.log --protected-mode no --daemonize yes
+
+$ vim /etc/systemd/system/redis-1000.service
+$ vim /etc/systemd/system/redis-1001.service
+$ vim /etc/systemd/system/redis-1002.service
+
+------------------------------------------------------------------------------------------------
+[Unit]
+Description="redis 1000"
+
+[Service]
+ExecStart=/root/redis/redis-stable/src/redis-server --bind 10.1.2.118 --port 1000 --dbfilename 1000.rdb --logfile 1000.log --protected-mode no
+WorkingDirectory=/root/redis/redis-stable/src
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=redis-1000
+
+[Install]
+WantedBy=multi-user.target
+------------------------------------------------------------------------------------------------
+[Unit]
+Description="redis 1001"
+
+[Service]
+ExecStart=/root/redis/redis-stable/src/redis-server --bind 10.1.2.118 --port 1001 --slaveof 10.1.2.118 1000 --dbfilename 1001.rdb --logfile 1001.log --protected-mode no
+WorkingDirectory=/root/redis/redis-stable/src
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=redis-1001
+
+[Install]
+WantedBy=multi-user.target
+------------------------------------------------------------------------------------------------
+[Unit]
+Description="redis 1002"
+
+[Service]
+ExecStart=/root/redis/redis-stable/src/redis-server --bind 10.1.2.118 --port 1002 --slaveof 10.1.2.118 1000 --dbfilename 1002.rdb --logfile 1002.log --protected-mode no
+WorkingDirectory=/root/redis/redis-stable/src
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=redis-1002
+
+[Install]
+WantedBy=multi-user.target
+------------------------------------------------------------------------------------------------
+systemctl daemon-reload
+sudo lsof -i -P -n | grep LISTEN
+
+$ systemctl enable redis-1000.service
+$ systemctl start redis-1000.service
+
+$ systemctl enable redis-1001.service
+$ systemctl start redis-1001.service
+
+$ systemctl enable redis-1002.service
+$ systemctl start redis-1002.service
+
+$ systemctl stop redis-1000.service
+$ systemctl restart redis-1000.service
+
+$ systemctl disable redis-1000.service
+$ systemctl status redis-1000.service
+
+
+$ systemctl restart redis-1000.service
+$ systemctl restart redis-1001.service
+$ systemctl restart redis-1002.service
+
+$ systemctl restart png.service
+$ systemctl restart pdf.service
+$ systemctl restart finfo.service

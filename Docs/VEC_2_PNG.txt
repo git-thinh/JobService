@@ -1,0 +1,19 @@
+﻿
+java -jar pdfbox.jar PrintPDF 1.ai
+
+sudo apt-get install librsvg2-bin
+
+rsvg-convert -f pdf -o 2.pdf 2.ai
+
+
+sudo apt-get install inkscape
+
+rsvg-convert -f pdf -o 3.rsvg.pdf 3.svg
+
+inkscape 3.svg --export-pdf=3.inkscape.pdf
+inkscape 2.ai --export-pdf=2.inkscape.pdf
+inkscape Grid_Sort.ai --export-pdf=Grid_Sort.inkscape.pdf
+
+
+gs -dNOPAUSE -dBATCH -sDEVICE=pngalpha -r300 -sOutputFile=Grid_Sort.gs.png Grid_Sort.ai
+gs -dNOPAUSE -dBATCH -sDEVICE=pngalpha -r100 -sOutputFile=Grid_Sort.gs.png Grid_Sort.ai
