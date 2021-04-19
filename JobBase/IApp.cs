@@ -1,11 +1,9 @@
 ﻿using Autofac;
-using StackExchange.Redis;
 using System.Collections.Generic;
 using System.Net.Http;
 
 public interface IApp
 {
-    ISubscriber RedisSubscriber { set; get; }
     IContainer AutofacContainer { set; get; }
     bool ApiCheckLogin(HttpRequestMessage request);
 
