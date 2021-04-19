@@ -30,3 +30,5 @@
 /Lib/StackExchange.Redis/obj
 /JPdf/bin
 /JPdf/obj
+/Lib/CSRedis/obj
+/Lib/CSRedis/bin
