@@ -11,7 +11,6 @@ using LZ4;
 public class JUrl : IJob
 {
     readonly IApp m_app;
-    private Dictionary<string, object> m_data;
     CancellationTokenSource cancellationToken;
     public JUrl(IApp app) => m_app = app;
     public void Cancel() => cancellationToken.Cancel();

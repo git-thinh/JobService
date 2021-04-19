@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfiumViewer", "Lib\PdfiumV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{A8AF41FA-2E2A-4F58-9066-BBB56685FD2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackExchange.Redis", "Lib\StackExchange.Redis\StackExchange.Redis.csproj", "{B48B9544-1879-44B1-95C0-C7146D110DDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,14 @@ Global
 		{A8AF41FA-2E2A-4F58-9066-BBB56685FD2E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A8AF41FA-2E2A-4F58-9066-BBB56685FD2E}.Release|x64.ActiveCfg = Release|Any CPU
 		{A8AF41FA-2E2A-4F58-9066-BBB56685FD2E}.Release|x64.Build.0 = Release|Any CPU
+		{B48B9544-1879-44B1-95C0-C7146D110DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B48B9544-1879-44B1-95C0-C7146D110DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B48B9544-1879-44B1-95C0-C7146D110DDF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B48B9544-1879-44B1-95C0-C7146D110DDF}.Debug|x64.Build.0 = Debug|Any CPU
+		{B48B9544-1879-44B1-95C0-C7146D110DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B48B9544-1879-44B1-95C0-C7146D110DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B48B9544-1879-44B1-95C0-C7146D110DDF}.Release|x64.ActiveCfg = Release|Any CPU
+		{B48B9544-1879-44B1-95C0-C7146D110DDF}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +129,7 @@ Global
 		{71E64142-D65E-48F9-9D2D-180EDB6A9FC0} = {AD1BF257-4B5D-42B4-87AC-ABF8B78E1885}
 		{D35E185E-A7E1-41E1-846C-21944F56074F} = {A1A661D8-BD53-46E6-9131-B1F21BD1FC36}
 		{438914B6-5D1C-482C-B942-5C0E057EEF6F} = {A1A661D8-BD53-46E6-9131-B1F21BD1FC36}
+		{B48B9544-1879-44B1-95C0-C7146D110DDF} = {A1A661D8-BD53-46E6-9131-B1F21BD1FC36}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {140B1259-B7CB-4AB4-AD68-8CD33165C903}

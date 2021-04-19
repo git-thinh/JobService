@@ -94,9 +94,6 @@
     <Reference Include="Pipelines.Sockets.Unofficial, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42ea0a778e13fbe2, processorArchitecture=MSIL">
       <HintPath>..\packages\Pipelines.Sockets.Unofficial.2.2.0\lib\net461\Pipelines.Sockets.Unofficial.dll</HintPath>
     </Reference>
-    <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
-      <HintPath>..\packages\StackExchange.Redis.2.2.4\lib\net461\StackExchange.Redis.dll</HintPath>
-    </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
@@ -206,6 +203,10 @@
     <ProjectReference Include="..\JobBase\JobBase.csproj">
       <Project>{a91d8353-358c-4992-bcf0-d1d5f8f35f05}</Project>
       <Name>JobBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lib\StackExchange.Redis\StackExchange.Redis.csproj">
+      <Project>{b48b9544-1879-44b1-95c0-c7146d110ddf}</Project>
+      <Name>StackExchange.Redis</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

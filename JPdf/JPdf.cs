@@ -10,11 +10,11 @@ using iTextSharpPdf = iTextSharp.text.pdf;
 using PdfSharp_ = PdfSharp.Pdf;
 using PdfSharp_IO = PdfSharp.Pdf.IO;
 using System.Text;
+using System.Drawing.Imaging;
 
 public class JPdf : IJob
 {
     readonly IApp m_app;
-    private Dictionary<string, object> m_data;
     CancellationTokenSource cancellationToken;
     public JPdf(IApp app) => m_app = app;
     public void Cancel() => cancellationToken.Cancel();
@@ -40,9 +40,10 @@ public class JPdf : IJob
             //_splitToPages_PDFsharp(file);
             _splitToPages_PdfiumViewer(file);
         }
+        context.WriteLine("-> Done: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss" + " ..."));
     }
 
-    string buildTotalPage(int page)
+    static string buildTotalPage(int page)
     {
         string s = page.ToString();
         switch (s.Length)
@@ -56,64 +57,40 @@ public class JPdf : IJob
         }
     }
 
-    static void _splitToPages_PdfiumViewer(string file)
+    void _splitToPages_PdfiumViewer(string file)
     {
-        //PdfiumViewer.PdfViewer pdfViewer1 = new PdfiumViewer.PdfViewer();
-        var document = PdfiumViewer.PdfDocument.Load(file);
-        //pdfViewer1.Document?.Dispose();
-        //pdfViewer1.Document = PdfiumViewer.PdfDocument.Load(file);
+        var fileInfo = new FileInfo(file);
+        var inputDoc = PdfiumViewer.PdfDocument.Load(file);
+        long fileSize = fileInfo.Length;
+        int max = inputDoc.PageCount;
+        string key = string.Format("{0}{1}", buildTotalPage(max), fileSize);
 
-
-        //var document = pdfViewer1.Document;
+        if (max > 5) max = 5;
         int w, h;
-        for (int i = 0; i < document.PageCount; i++)
+        for (int i = 0; i < max; i++)
         {
             int pageNumber = i + 1;
-            w = (int)document.PageSizes[i].Width;
-            h = (int)document.PageSizes[i].Height;
-
+            w = (int)inputDoc.PageSizes[i].Width;
+            h = (int)inputDoc.PageSizes[i].Height;
             //if (w >= h) w = this.Width;
             //else w = 1200;
-            //h = (int)((w * document.PageSizes[i].Height) / document.PageSizes[i].Width);
-
-            using (var image = document.Render(i,
-                //(int)document.PageSizes[i].Width,
-                //(int)document.PageSizes[i].Height,
-                //dpiX, dpiY,
-                w, h,
-                100, 100,
-                false))
+            if (w < 1200) w = 1200;
+            h = (int)((w * inputDoc.PageSizes[i].Height) / inputDoc.PageSizes[i].Width);
+            using (var ms = new MemoryStream())
+            using (var image = inputDoc.Render(i, w, h, 100, 100, false))
             {
-                //image.Save(Path.Combine(path, "Page " + i + ".png"));
-                image.Save(@"C:\temp\" + pageNumber + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);                 
+                //image.Save(@"C:\temp\" + pageNumber + "-.jpg", ImageFormat.Jpeg);
+                image.Save(ms, ImageFormat.Jpeg);
+
+                var lz = LZ4Codec.Wrap(ms.ToArray());
+                //var decompressed = LZ4Codec.Unwrap(compressed);
+                //long s1 = ms.Length;
+                //long s2 = lz.Length;
+                //m_app.RedisUpdate(key, i.ToString(), lz);
+
+                //var db = RedisStore
             }
         }
-
-        //foreach (var page in doc.)
-        //    using (page)
-        //    {
-        //        using (var bitmap = new PdfiumViewer.PDFiumBitmap((int)page.Width, (int)page.Height, true))
-        //        using (var stream = new FileStream($"{i++}.bmp", FileMode.Create))
-        //        {
-        //            page.Render(bitmap);
-        //            bitmap.Save(stream);
-        //        } 
-
-        //using (var doc = new PdfiumViewer.PdfDocument(file))
-        //{
-        //    int i = 0;
-        //    foreach (var page in doc.Pages)
-        //        using (page)
-        //        {
-        //            using (var bitmap = new PdfiumViewer.PDFiumBitmap((int)page.Width, (int)page.Height, true))
-        //            using (var stream = new FileStream($"{i++}.bmp", FileMode.Create))
-        //            {
-        //                page.Render(bitmap);
-        //                bitmap.Save(stream);
-        //            }
-        //        }
-
-        //} 
     }
 
     void _splitToPages_PDFsharp(string file)
@@ -121,11 +98,11 @@ public class JPdf : IJob
         // Open the file
         var inputDoc = PdfSharp_IO.PdfReader.Open(file, PdfSharp_IO.PdfDocumentOpenMode.Import);
         long fileSize = inputDoc.FileSize;
+        int max = inputDoc.PageCount;
+        string key = string.Format("{0}{1}", buildTotalPage(max), inputDoc.FileSize);
 
         string name = Path.GetFileNameWithoutExtension(file);
-        int max = inputDoc.PageCount;
         if (max > 5) max = 5;
-        string key = string.Format("{0}{1}", buildTotalPage(max), inputDoc.FileSize);
         for (int idx = 0; idx < max; idx++)
         {
             int i = idx + 1;
