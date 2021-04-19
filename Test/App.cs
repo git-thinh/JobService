@@ -18,13 +18,23 @@ namespace Test
 {
     public class AppBuilderProvider : IApp, IDisposable
     {
+        public string PATH_ROOT { get; }
+        public string PATH_WWW { get; }
         public ISubscriber RedisSubscriber { set; get; }
         public IContainer AutofacContainer { set; get; }
 
         #region [ Ctor ]
 
         private IAppBuilder _app;
-        public AppBuilderProvider(IAppBuilder app) => _app = initRouter(app);
+        public AppBuilderProvider(IAppBuilder app)
+        {
+            string path = HostingEnvironment.MapPath("~/");
+            if (!path.EndsWith("\\")) path = path + "\\";
+            var a = path.Split('\\').Where(x => x.Length > 0).ToArray();
+            PATH_WWW = path;
+            PATH_ROOT = path.Substring(0, path.Length - a[a.Length - 1].Length - 1);
+            _app = initRouter(app);
+        }
 
         public IAppBuilder Get() => _app;
         public IApp getApp() => this;
@@ -105,9 +115,9 @@ namespace Test
         {
             string jobName = "";
             jobName = "JUrl";
-            //jobName = "JPdf";
+            jobName = "JPdf";
 
-            string pathDll = HostingEnvironment.MapPath("~/Jobs/"+jobName+".dll");
+            string pathDll = PATH_WWW + "Jobs\\" + jobName + ".dll";
             if (File.Exists(pathDll))
             {
                 var asm = Assembly.LoadFrom(pathDll);

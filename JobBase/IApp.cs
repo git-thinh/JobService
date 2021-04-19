@@ -4,6 +4,8 @@ using System.Net.Http;
 
 public interface IApp
 {
+    string PATH_ROOT { get; }
+    string PATH_WWW { get; }
     IContainer AutofacContainer { set; get; }
     bool ApiCheckLogin(HttpRequestMessage request);
 

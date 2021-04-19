@@ -22,7 +22,7 @@ public class JPdf : IJob
     public void test(PerformContext context)
     {
         var data = new Dictionary<string, object>() {
-            { "file", @"D:\tt\core\JobService\Test\2.pdf" },
+            { "file", m_app.PATH_ROOT + "Files\\2.pdf" },
             { "_rd_publish", true }
         };
         call(context, data);
@@ -34,7 +34,7 @@ public class JPdf : IJob
         context.WriteLine("-> Started: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss" + " ..."));
 
         string file = data.Get<string>("file", string.Empty);
-        if (file.Length > 0)
+        if (File.Exists(file))
         {
             //_splitToPages_iTextSharp(file);
             //_splitToPages_PDFsharp(file);
@@ -68,6 +68,7 @@ public class JPdf : IJob
         int w, h;
         for (int i = 0; i < document.PageCount; i++)
         {
+            int pageNumber = i + 1;
             w = (int)document.PageSizes[i].Width;
             h = (int)document.PageSizes[i].Height;
 
@@ -84,7 +85,7 @@ public class JPdf : IJob
                 false))
             {
                 //image.Save(Path.Combine(path, "Page " + i + ".png"));
-                image.Save(@"C:\temp\" + i + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);                 
+                image.Save(@"C:\temp\" + pageNumber + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);                 
             }
         }
 
