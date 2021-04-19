@@ -26,3 +26,7 @@
 /JUrl/bin
 /Test/bin
 /Test/obj
+/Lib/StackExchange.Redis/bin
+/Lib/StackExchange.Redis/obj
+/JPdf/bin
+/JPdf/obj
