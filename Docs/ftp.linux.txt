@@ -12,10 +12,13 @@ write_enable=YES
 
 
 user$: chown -R root /home/ftpuser
+user$: sudo chmod 777 /home/ftpuser
+
+ls -la /home/ftpuser
 
 
-
-
+systemctl restart vsftpd
+systemctl status -l vsftpd
 
 
 

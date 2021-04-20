@@ -17,58 +17,59 @@
 
 * Config files *.conf:
 
-	# 1000.conf
+	# vim 5000.conf
 
-	bind 10.1.3.118
+	bind 127.0.0.1 10.103.1.150
 	protected-mode no
-	port 1000
+	port 5000
 	daemonize yes
-	pidfile 1000.pid
+	pidfile 5000.pid
 	loglevel notice
-	logfile 1000.log
+	logfile 5000.log
 	databases 1
 	daemonize yes
 	
-	# 1001.conf
+	# vim 5001.conf
 
-	bind 10.1.3.118	
+	bind 127.0.0.1 10.103.1.150	
 	protected-mode no
-	port 1001
+	port 5001
 	daemonize yes
-	pidfile 1001.pid
+	pidfile 5001.pid
 	loglevel notice
-	logfile 1001.log
-	databases 1
+	logfile 5001.log
+	databases 16
 	daemonize yes
-	slaveof 10.1.3.118 1000	
+	#slaveof 10.103.1.150 5000	
+	replicaof 10.103.1.150 5000	
 	
-	# 1002.conf
+	# vim 5002.conf
 
-	bind 10.1.3.118	
+	bind 10.103.1.150	
 	protected-mode no
-	port 1002
+	port 5002
 	daemonize yes
-	pidfile 1002.pid
+	pidfile 5002.pid
 	loglevel notice
-	logfile 1002.log
-	databases 1
+	logfile 5002.log
+	databases 16
 	daemonize yes
-	slaveof 10.1.3.118 1000
+	slaveof 10.103.1.150 5000
 	
 * Setting Firewall:
 
-	sudo ufw allow 1000
-	sudo ufw allow 1001
-	sudo ufw allow 1002	
+	sudo ufw allow 5000
+	sudo ufw allow 5001
+	sudo ufw allow 5002	
 	
 	sudo ufw allow 5000
 	sudo ufw allow 26379
 	
 * Start Redis-server:
 	
-	redis-server 1000.conf
-	redis-server 1001.conf
-	redis-server 1002.conf
+	redis-server 5000.conf
+	redis-server 5001.conf
+	redis-server 5002.conf
 	
 * Check status:
 
@@ -77,54 +78,54 @@
 ================================================================================================
 * Setup as service:
 
-	./redis-server --bind 10.1.3.118 --port 2000 --dbfilename 2000.rdb --logfile 2000.log --protected-mode no --daemonize yes
+	./redis-server --bind 10.103.1.150 --port 2000 --dbfilename 2000.rdb --logfile 2000.log --protected-mode no --daemonize yes
 
-	$ vim /etc/systemd/system/1000.service
-	$ vim /etc/systemd/system/1001.service
-	$ vim /etc/systemd/system/1002.service
+	$ vim /etc/systemd/system/5000.service
+	$ vim /etc/systemd/system/5001.service
+	$ vim /etc/systemd/system/5002.service
 
 ------------------------------------------------------------------------------------------------
 [Unit]
-Description="Redis 1000"
+Description="Redis 5000"
 
 [Service]
-ExecStart=/home/ftpuser/redis-stable/src/redis-server --bind 10.1.3.118 --port 1000 --dbfilename 1000.rdb --logfile 1000.log --protected-mode no
+ExecStart=/home/ftpuser/redis-stable/src/redis-server --bind 10.103.1.150 --port 5000 --dbfilename 5000.rdb --logfile 5000.log --loglevel notice --protected-mode no
 WorkingDirectory=/home/ftpuser/redis-stable/src
 Restart=always
 RestartSec=10
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier=Redis-1000
+SyslogIdentifier=Redis-5000
 
 [Install]
 WantedBy=multi-user.target
 ------------------------------------------------------------------------------------------------
 [Unit]
-Description="redis 1001"
+Description="redis 5001"
 
 [Service]
-ExecStart=/home/ftpuser/redis-stable/src/redis-server --bind 10.1.3.118 --port 1001 --slaveof 10.1.3.118 1000 --dbfilename 1001.rdb --logfile 1001.log --protected-mode no
+ExecStart=/home/ftpuser/redis-stable/src/redis-server --bind 10.103.1.150 --port 5001 --replicaof 10.103.1.150 5000 --dbfilename 5001.rdb --logfile 5001.log --loglevel notice --protected-mode no
 WorkingDirectory=/home/ftpuser/redis-stable/src
 Restart=always
 RestartSec=10
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier=redis-1001
+SyslogIdentifier=redis-5001
 
 [Install]
 WantedBy=multi-user.target
 ------------------------------------------------------------------------------------------------
 [Unit]
-Description="redis 1002"
+Description="redis 5002"
 
 [Service]
-ExecStart=/home/ftpuser/redis-stable/src/redis-server --bind 10.1.3.118 --port 1002 --slaveof 10.1.3.118 1000 --dbfilename 1002.rdb --logfile 1002.log --protected-mode no
+ExecStart=/home/ftpuser/redis-stable/src/redis-server --bind 10.103.1.150 --port 5002 --slaveof 10.103.1.150 5000 --dbfilename 5002.rdb --logfile 5002.log --protected-mode no
 WorkingDirectory=/home/ftpuser/redis-stable/src
 Restart=always
 RestartSec=10
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier=redis-1002
+SyslogIdentifier=redis-5002
 
 [Install]
 WantedBy=multi-user.target
@@ -133,18 +134,18 @@ WantedBy=multi-user.target
 systemctl daemon-reload
 sudo lsof -i -P -n | grep LISTEN
 
-$ systemctl enable 1000.service
-$ systemctl start 1000.service
-$ systemctl stop 1000.service
-$ systemctl restart 1000.service
-$ systemctl disable 1000.service
-$ systemctl status 1000.service
+$ systemctl enable 5000.service
+$ systemctl start 5000.service
+$ systemctl stop 5000.service
+$ systemctl restart 5000.service
+$ systemctl disable 5000.service
+$ systemctl status 5000.service
 
-$ systemctl enable 1001.service
-$ systemctl start 1001.service
+$ systemctl enable 5001.service
+$ systemctl start 5001.service
 
-$ systemctl enable 1002.service
-$ systemctl start 1002.service
+$ systemctl enable 5002.service
+$ systemctl start 5002.service
 
 
 
