@@ -11,7 +11,7 @@ using System.Web;
 
 namespace Test
 {
-    public class Redis
+    public class RedisStatic
     {
         static IApp m_app;
         static bool m_connected;
@@ -28,7 +28,7 @@ namespace Test
             {
                 new Thread(new ParameterizedThreadStart((ms) =>
                 {
-                    var m_db = RedisStore.Db;
+                    var m_db = RedisWrite.Db;
                     m_connected = true;
 
                     var tup = (Tuple<IApp, ConcurrentQueue<Dictionary<string, object>>>)ms;
@@ -82,7 +82,7 @@ namespace Test
                 new Thread(new ParameterizedThreadStart((ms) =>
                 {
                     var app = (IApp)ms;
-                    var redis = RedisStore.Connection;
+                    var redis = RedisRead.Connection;
                     //app.RedisSubscriber = redis.GetSubscriber();
                     //app.RedisSubscriber.Subscribe("MESSAGE", OnMessage);
                     m_pubsub.WaitOne();
@@ -154,17 +154,17 @@ namespace Test
 
         public static void RedisClearDB()
         {
-            RedisStore.Server.FlushDatabase();
+            RedisWrite.Server.FlushDatabase();
         }
 
         public static void RedisSaveFile()
         {
-            RedisStore.Server.SaveAsync(SaveType.BackgroundSave);
+            RedisWrite.Server.SaveAsync(SaveType.BackgroundSave);
         }
 
         public static string[] RedisSearchKeys(string keyContainText)
         {
-            return RedisStore.Server.Keys(pattern: "*" + keyContainText + "*").Select(x => (string)x).ToArray();
+            return RedisRead.Server.Keys(pattern: "*" + keyContainText + "*").Select(x => (string)x).ToArray();
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -282,14 +282,14 @@ namespace Test
         }
     }
 
-    public class RedisStore
+    public class RedisWrite
     {
         private static readonly Lazy<ConnectionMultiplexer> LazyConnection;
         private static readonly string redisConnectStr;
 
-        static RedisStore()
+        static RedisWrite()
         {
-            redisConnectStr = ConfigurationManager.AppSettings["REDIS_CONNECT"];
+            redisConnectStr = ConfigurationManager.AppSettings["REDIS_WRITE"];
             LazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(redisConnectStr));
         }
 
@@ -298,4 +298,19 @@ namespace Test
         public static IDatabase Db => Connection.GetDatabase();
     }
 
+    public class RedisRead
+    {
+        private static readonly Lazy<ConnectionMultiplexer> LazyConnection;
+        private static readonly string redisConnectStr;
+
+        static RedisRead()
+        {
+            redisConnectStr = ConfigurationManager.AppSettings["REDIS_READ"];
+            LazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(redisConnectStr));
+        }
+
+        public static ConnectionMultiplexer Connection => LazyConnection.Value;
+        public static IServer Server => LazyConnection.Value.GetServer(redisConnectStr.Split(',')[0]);
+        public static IDatabase Db => Connection.GetDatabase();
+    }
 }

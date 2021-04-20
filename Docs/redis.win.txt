@@ -17,7 +17,9 @@ redis-server.exe --service-install --service-name r5.6379 --port 6379 --dbfilena
 sc delete r5.6379
 
 * Master 
-redis-server.exe --service-run --service-name rm5.1000 --port 1000 --dbfilename 1000.rdb --logfile 1000.log --bind 127.0.0.1 --appendonly yes --appendfilename 1000.aof
+redis-server.exe --service-install --service-name r5.1000 --bind 127.0.0.1 --port 1000 --dbfilename 1000.rdb --loglevel verbose --logfile 1000.log --appendonly yes --protected-mode no
+
+redis-server.exe --service-run --service-name r5.1000 --port 1000 --dbfilename 1000.rdb --logfile 1000.log --bind 127.0.0.1 --appendonly yes --appendfilename 1000.aof
 sc delete rm5.1000
 
 * Slave
@@ -28,6 +30,8 @@ sc delete rs5.1002
 
 #1001.conf
 --------------------------------
+redis-server.exe --service-install --service-name r5.1001 --bind 127.0.0.1 --port 1001 --dbfilename 1001.rdb --loglevel verbose --logfile 1001.log --appendonly yes --protected-mode no --replicaof 127.0.0.1 1000
+
 bind 127.0.0.1
 port 1001
 logfile 1001.log

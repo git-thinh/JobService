@@ -44,8 +44,8 @@ namespace Test
 
         private IAppBuilder initRouter(IAppBuilder app)
         {
-            Redis.initInstance(this);
-            Redis.initPubSub(this);
+            RedisStatic.initInstance(this);
+            RedisStatic.initPubSub(this);
 
             var builder = new ContainerBuilder();
             builder.RegisterInstance<IApp>(this).SingleInstance();
@@ -101,15 +101,15 @@ namespace Test
         public void EventRegister(object client) => EventSocket.Register(client);
 
 
-        public void RedisClearDB() => Redis.RedisClearDB();
-        public void RedisSaveFile() => Redis.RedisSaveFile();
-        public string[] RedisSearchKeys(string keyContainText) => Redis.RedisSearchKeys(keyContainText);
-        public void RedisPublish(string message) => Redis.Publish(message);
-        public void RedisUpdate(string storeKey, string itemKey, Dictionary<string, object> data) => Redis.Update(storeKey, itemKey, data);
-        public void RedisUpdate(string storeKey, string itemKey, byte[] data) => Redis.Update(storeKey, itemKey, data);
-        public void RedisUpdate(string storeKey, string itemKey, string data) => Redis.Update(storeKey, itemKey, data);
-        public void RedisDelete(string storeKey, string itemKey) => Redis.Delete(storeKey, itemKey);
-        public void RedisDeleteAll(string storeKey) => Redis.DeleteAll(storeKey);
+        public void RedisClearDB() => RedisStatic.RedisClearDB();
+        public void RedisSaveFile() => RedisStatic.RedisSaveFile();
+        public string[] RedisSearchKeys(string keyContainText) => RedisStatic.RedisSearchKeys(keyContainText);
+        public void RedisPublish(string message) => RedisStatic.Publish(message);
+        public void RedisUpdate(string storeKey, string itemKey, Dictionary<string, object> data) => RedisStatic.Update(storeKey, itemKey, data);
+        public void RedisUpdate(string storeKey, string itemKey, byte[] data) => RedisStatic.Update(storeKey, itemKey, data);
+        public void RedisUpdate(string storeKey, string itemKey, string data) => RedisStatic.Update(storeKey, itemKey, data);
+        public void RedisDelete(string storeKey, string itemKey) => RedisStatic.Delete(storeKey, itemKey);
+        public void RedisDeleteAll(string storeKey) => RedisStatic.DeleteAll(storeKey);
 
         public void JobTest()
         {
