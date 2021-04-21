@@ -25,7 +25,7 @@ namespace Test
 
         #region [ Ctor ]
 
-        private IAppBuilder _app;
+        private IAppBuilder m_app;
         public AppBuilderProvider(IAppBuilder app)
         {
             string path = HostingEnvironment.MapPath("~/");
@@ -33,20 +33,17 @@ namespace Test
             var a = path.Split('\\').Where(x => x.Length > 0).ToArray();
             PATH_WWW = path;
             PATH_ROOT = path.Substring(0, path.Length - a[a.Length - 1].Length - 1);
-            _app = initRouter(app);
+            m_app = app;
         }
 
-        public IAppBuilder Get() => _app;
+        public IAppBuilder Get() => m_app;
         public IApp getApp() => this;
         public void Dispose() { }
 
         #endregion
 
-        private IAppBuilder initRouter(IAppBuilder app)
+        public void initRouter()
         {
-            RedisStatic.initInstance(this);
-            RedisStatic.initPubSub(this);
-
             var builder = new ContainerBuilder();
             builder.RegisterInstance<IApp>(this).SingleInstance();
             builder.RegisterType<IJob>();
@@ -55,7 +52,7 @@ namespace Test
             this.AutofacContainer = container;
             GlobalConfiguration.Configuration.UseAutofacActivator(container, false);
 
-            app.Use((context, next) =>
+            m_app.Use((context, next) =>
             {
                 string path = context.Request.Uri.AbsolutePath, ext = string.Empty;
                 if (path.Length > 3) ext = path.Substring(path.Length - 3, 3);
@@ -89,11 +86,9 @@ namespace Test
                 }
             });
 
-            app.initHangfire();
+            m_app.initHangfire();
 
             JobTest();
-
-            return app;
         }
 
         public bool ApiCheckLogin(HttpRequestMessage request) => request.ApiCheckLogin();
@@ -113,25 +108,25 @@ namespace Test
 
         public void JobTest()
         {
-            string jobName = "";
-            jobName = "JUrl";
-            jobName = "JPdf";
+            //string jobName = "";
+            //jobName = "JUrl";
+            //jobName = "JPdf";
 
-            string pathDll = PATH_WWW + "Jobs\\" + jobName + ".dll";
-            if (File.Exists(pathDll))
-            {
-                var asm = Assembly.LoadFrom(pathDll);
-                var type = asm.GetTypes().Where(x => x.Name != "<>c").SingleOrDefault();
-                if (type != null)
-                {
-                    var updater = new ContainerBuilder();
-                    updater.RegisterType(type);
-                    updater.Update(this.AutofacContainer);
+            //string pathDll = PATH_WWW + "Jobs\\" + jobName + ".dll";
+            //if (File.Exists(pathDll))
+            //{
+            //    var asm = Assembly.LoadFrom(pathDll);
+            //    var type = asm.GetTypes().Where(x => x.Name != "<>c").SingleOrDefault();
+            //    if (type != null)
+            //    {
+            //        var updater = new ContainerBuilder();
+            //        updater.RegisterType(type);
+            //        updater.Update(this.AutofacContainer);
 
-                    var job = (IJob)Activator.CreateInstance(type, new object[] { (IApp)(this) });
-                    var jobId = BackgroundJob.Enqueue(() => job.test(null));
-                }
-            }
+            //        var job = (IJob)Activator.CreateInstance(type, new object[] { (IApp)(this) });
+            //        var jobId = BackgroundJob.Enqueue(() => job.test(null));
+            //    }
+            //}
         }
     }
 }

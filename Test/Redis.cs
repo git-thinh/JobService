@@ -42,7 +42,10 @@ namespace Test
                             continue;
                         }
 
-                        if (qs.Count == 0) m_signal.WaitOne();
+                        if (qs.Count == 0)
+                        {
+                            m_signal.WaitOne();
+                        }
 
                         if (m_connected)
                         {
@@ -58,8 +61,7 @@ namespace Test
                                 k++;
                             }
 
-                            IBatch batch = m_db.CreateBatch();
-                            updateBatch(batch, arr);
+                            updateBatch(m_db, arr);
                             
                             //app_.RedisSaveFile();
 
@@ -185,9 +187,12 @@ namespace Test
             }
         }
 
-        static void updateBatch(IBatch batch, Dictionary<string, object>[] arr)
+        static void updateBatch(IDatabase db, Dictionary<string, object>[] arr)
         {
             if (arr == null || arr.Length == 0) return;
+
+            IBatch batch = db.CreateBatch();
+
             var list = new List<Task<bool>>();
             var indexs = new List<int>();
 

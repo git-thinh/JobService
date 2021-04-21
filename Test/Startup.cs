@@ -20,12 +20,17 @@ namespace Test
             ThreadPool.SetMinThreads(10001, 10001);
 
             var app = new AppBuilderProvider(appBuilder);
-            //Microsoft.AspNet.Identity.Owin
+            //RedisStatic.initInstance(app);
+            //RedisStatic.initPubSub(app);
+
+            app.initRouter();
             appBuilder.CreatePerOwinContext(() => app);
 
             HttpConfiguration httpConfiguration = new HttpConfiguration();
             WebApiConfig.Register(httpConfiguration, app);
             appBuilder.UseWebApi(httpConfiguration);
+
+            Global.UpdateRedis(new Dictionary<string, object>() { { "key", 12345 } });
         }
     }
 

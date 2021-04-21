@@ -63,9 +63,9 @@ public class JPdf : IJob
         var inputDoc = PdfiumViewer.PdfDocument.Load(file);
         long fileSize = fileInfo.Length;
         int max = inputDoc.PageCount;
+        if (max > 5) max = 5;
         string key = string.Format("{0}{1}", buildTotalPage(max), fileSize);
 
-        if (max > 5) max = 5;
         int w, h;
         for (int i = 0; i < max; i++)
         {
