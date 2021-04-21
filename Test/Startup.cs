@@ -1,4 +1,8 @@
-﻿using Owin;
+﻿using Microsoft.Owin;
+using Microsoft.Owin.Security.DataHandler.Encoder;
+using Microsoft.Owin.Security.Jwt;
+using Microsoft.Owin.Security.OAuth;
+using Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +11,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
@@ -15,29 +20,29 @@ namespace Test
 {
     public class Startup
     {
-        public void Configuration(IAppBuilder appBuilder)
+        public void Configuration(IAppBuilder app)
         {
             ThreadPool.SetMinThreads(10001, 10001);
 
-            var app = new AppBuilderProvider(appBuilder);
-            //RedisStatic.initInstance(app);
-            //RedisStatic.initPubSub(app);
+            var iapp = new AppBuilderProvider(app);
+            //RedisStatic.initInstance(iapp);
+            //RedisStatic.initPubSub(iapp);
 
-            app.initRouter();
-            appBuilder.CreatePerOwinContext(() => app);
+            iapp.initRouter();
+            app.CreatePerOwinContext(() => iapp);
 
-            HttpConfiguration httpConfiguration = new HttpConfiguration();
-            WebApiConfig.Register(httpConfiguration, app);
-            appBuilder.UseWebApi(httpConfiguration);
+            WebApiConfig.Register(app, iapp);
 
-            Global.UpdateRedis(new Dictionary<string, object>() { { "key", 12345 } });
+            //Global.UpdateRedis(new Dictionary<string, object>() { { "key", 12345 } });
         }
     }
 
     public class WebApiConfig
     {
-        public static void Register(HttpConfiguration config, IApp app)
+        public static void Register(IAppBuilder app, IApp iapp)
         {
+            HttpConfiguration config = new HttpConfiguration();
+
             config.Routes.MapHttpRoute(
                     name: "EventSocket",
                     routeTemplate: CONFIG.EVENT_WS_NAME,
@@ -59,7 +64,28 @@ namespace Test
             var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
             config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
 
-            config.Filters.Add(new AuthorizeFilter(app));
+            config.Filters.Add(new AuthorizeFilter(iapp));
+
+            ConfigureOAuth(app);
+
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            app.UseWebApi(config);
+        }
+
+        static void ConfigureOAuth(IAppBuilder app)
+        {
+            // OAuth 2.0 Bearer Access Token Generation
+            app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions()
+            {
+                //For Dev enviroment only (on production should be AllowInsecureHttp = false)
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/oauth/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                Provider = new CustomOAuthProvider2(),
+                //Provider = new CustomOAuthProvider(),
+                //AccessTokenFormat = new CustomJwtFormat("http://jwtauthzsrv.azurewebsites.net")
+            });
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
     }
 
