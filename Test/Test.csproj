@@ -157,7 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Authorize.cs" />
+    <Compile Include="Authorize\Authorize.cs" />
     <Compile Include="Controller\Base.cs" />
     <Compile Include="Controller\Event.cs" />
     <Compile Include="Controller\Images.cs" />
@@ -176,12 +176,14 @@
     <Compile Include="Redis.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Token\AudiencesStore.cs" />
-    <Compile Include="Token\Audience.cs" />
-    <Compile Include="Token\CustomJwtFormat.cs" />
-    <Compile Include="Token\AudienceModel.cs" />
-    <Compile Include="Token\CustomOAuthProvider2.cs" />
-    <Compile Include="Token\CustomOAuthProvider.cs" />
+    <Compile Include="Authorize\AudiencesStore.cs" />
+    <Compile Include="Authorize\Audience.cs" />
+    <Compile Include="Authorize\BasicAuthenticationAttribute.cs" />
+    <Compile Include="Authorize\CustomJwtFormat.cs" />
+    <Compile Include="Authorize\AudienceModel.cs" />
+    <Compile Include="Authorize\CustomOAuthProvider2.cs" />
+    <Compile Include="Authorize\CustomOAuthProvider.cs" />
+    <Compile Include="Controller\BasicAuthen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

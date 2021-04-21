@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Home</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
     <h1>JobService</h1>
@@ -11,7 +12,27 @@
     <h3><a href="/admin" style="text-decoration:none;">Admin</a></h3>
     <h3><a href="/test" style="text-decoration:none;" target="_blank">Test</a></h3>
     <h3><a href="/api/job" style="text-decoration:none;" target="_blank">Job</a></h3>
+    <hr/>
+    <button onclick="test1()">test1</button>
+    <script type="text/javascript">
 
+        function test1() {
+            $.ajax({
+                type: 'GET',
+                url: "api/BasicAuthen",
+                datatype: 'json',
+                headers:
+                {
+                    Authorization: 'Basic ' + btoa('admin:12345')
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (data) {
+                }
+            });
+        }
 
+    </script>
 </body>
 </html>
