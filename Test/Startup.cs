@@ -66,13 +66,13 @@ namespace Test
 
             config.Filters.Add(new AuthorizeFilter(iapp));
 
-            ConfigureOAuth(app);
+            SettingOAuthAuthorization(app);
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
         }
 
-        static void ConfigureOAuth(IAppBuilder app)
+        static void SettingOAuthAuthorization(IAppBuilder app)
         {
             // OAuth 2.0 Bearer Access Token Generation
             app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions()
@@ -81,7 +81,9 @@ namespace Test
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/oauth/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+
                 Provider = new CustomOAuthProvider2(),
+
                 //Provider = new CustomOAuthProvider(),
                 //AccessTokenFormat = new CustomJwtFormat("http://jwtauthzsrv.azurewebsites.net")
             });
