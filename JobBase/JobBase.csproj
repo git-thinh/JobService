@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Document.cs" />
     <Compile Include="DashboardAuthorize.cs" />
     <Compile Include="CONFIG.cs" />
     <Compile Include="DictionaryExtension.cs" />

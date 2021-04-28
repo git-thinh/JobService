@@ -1,0 +1,9 @@
+C:\tt\JobService\Debug\PdfSplit.exe.config
+C:\tt\JobService\Debug\PdfSplit.exe
+C:\tt\JobService\Debug\PdfSplit.pdb
+C:\tt\JobService\SandBox\PdfSplit\obj\Debug\PdfSplit.csprojAssemblyReference.cache
+C:\tt\JobService\SandBox\PdfSplit\obj\Debug\PdfSplit.exe.config
+C:\tt\JobService\SandBox\PdfSplit\obj\Debug\PdfSplit.csproj.CoreCompileInputs.cache
+C:\tt\JobService\SandBox\PdfSplit\obj\Debug\PdfSplit.csproj.CopyComplete
+C:\tt\JobService\SandBox\PdfSplit\obj\Debug\PdfSplit.exe
+C:\tt\JobService\SandBox\PdfSplit\obj\Debug\PdfSplit.pdb

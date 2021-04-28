@@ -43,19 +43,6 @@ public class JPdf : IJob
         context.WriteLine("-> Done: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss" + " ..."));
     }
 
-    static string buildTotalPage(int page)
-    {
-        string s = page.ToString();
-        switch (s.Length)
-        {
-            default: return "100000";
-            case 1: return "10000" + s;
-            case 2: return "1000" + s;
-            case 3: return "100" + s;
-            case 4: return "10" + s;
-            case 5: return "1" + s;
-        }
-    }
 
     void _splitToPages_PdfiumViewer(string file)
     {
@@ -64,8 +51,7 @@ public class JPdf : IJob
         long fileSize = fileInfo.Length;
         int max = inputDoc.PageCount;
         if (max > 5) max = 5;
-        string key = string.Format("{0}{1}", buildTotalPage(max), fileSize);
-
+        string key = DocumentStatic.buildId(max, fileSize);
         int w, h;
         for (int i = 0; i < max; i++)
         {
@@ -99,7 +85,7 @@ public class JPdf : IJob
         var inputDoc = PdfSharp_IO.PdfReader.Open(file, PdfSharp_IO.PdfDocumentOpenMode.Import);
         long fileSize = inputDoc.FileSize;
         int max = inputDoc.PageCount;
-        string key = string.Format("{0}{1}", buildTotalPage(max), inputDoc.FileSize);
+        string key = DocumentStatic.buildId(max, fileSize);
 
         string name = Path.GetFileNameWithoutExtension(file);
         if (max > 5) max = 5;
@@ -155,7 +141,7 @@ public class JPdf : IJob
 
         int max = reader.NumberOfPages;
         if (max > 5) max = 5;
-        string key = string.Format("{0}{1}", buildTotalPage(max), fileSize);
+        string key = DocumentStatic.buildId(max, fileSize);
         for (int i = 1; i <= max; i++)
         {
 
